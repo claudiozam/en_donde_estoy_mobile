@@ -60,7 +60,7 @@ public class HTService extends Activity  implements Runnable
 	boolean TimerState=false; 
 	RequestTask objT;
 	boolean flagNewLocation;
-	MetodosMapas objMetodosMap=new MetodosMapas();
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public HTService()
@@ -189,13 +189,31 @@ public class HTService extends Activity  implements Runnable
 					    		    		 Log.i(TAG, "[Handler] RESPONSE : "+objT.getResponse());		//DEBUG
 					    		    		 
 				    		    			CategoryLocation[] arrobjCatLoc = gson.fromJson(objT.getResponse(), CategoryLocation[].class);
-				    		    			if(objMetodosMap.ColocarPuntosEnMapa(arrobjCatLoc))
+				    		    			
+				    		    			if(arrobjCatLoc.length>0)
 				    		    			{
-				    		    				
+					    		    			Intent IntMetodosMap = null;				    				    
+					    					    try
+					    					    {
+					    					    	IntMetodosMap=new Intent(getApplicationContext(),HTService.class);
+					    					    	IntMetodosMap.putExtra("DatosCatLoc", arrobjCatLoc);
+					    					    	
+					    					    }catch(Exception Ex)
+					    					    {
+					    					    	Log.e(TAG,"[Handler] Exception MetodosMapas Intent: "+Ex);	
+					    					    }
+					    					    try
+					    						{
+					    					    	startActivity(IntMetodosMap);
+					    						}catch(Exception ex)
+					    						{
+					    							Log.i(TAG,"[Handler] Exception MetodosMapas Start: "+ex);	
+					    						}					
 				    		    			}else
 				    		    			{
-				    		    				Log.i(TAG, "[Handler] NO SE COLOCARON PUNTOS EN MAPA");		//DEBUG
-				    		    			}
+				    		    				Log.i(TAG,"[Handler] NO HAY CATEGORIAS CERCA");
+				    		    			}			    		    			
+				    		    			
 					    		    	 }
 					    		    	 btEnvioURL.setSelected(false);
 					    		     }
