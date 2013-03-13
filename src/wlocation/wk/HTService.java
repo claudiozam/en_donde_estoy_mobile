@@ -6,9 +6,6 @@ import java.util.Locale;
 import java.util.Timer;
 
 import metodos.MetodosMapas;
-
-import org.springframework.web.client.RestTemplate;
-
 import com.google.gson.Gson;
 
 import domain.CategoryLocation;
