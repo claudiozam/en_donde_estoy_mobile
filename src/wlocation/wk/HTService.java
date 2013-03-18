@@ -156,7 +156,9 @@ public class HTService extends Activity  implements Runnable
 	    			   		
 	    			   		//String urlCatLoc = new String("http://192.168.252.129:3333/location_points/near_location_points.json?lat=-34.593968&lng=-58.413883");
 	    			   		//String urlCatLoc = new String("http://192.168.252.129:3333/location_points/near_location_points.json?"+json);
-	    			   		String urlCatLoc = new String("http://sharedpc.dnsalias.com:3001/location_points/near_location_points.json?"+json);
+	    			   		//String urlCatLoc = new String("http://sharedpc.dnsalias.com:3001/location_points/near_location_points.json?"+json);
+	    			   		String urlCatLoc = new String("http://sharedpc.dnsalias.com:3001/location_points/near_location_points.json?alt=0.0&battery=50&code=CYS172827&id=AndCYS&imei=000000000000003&lat=-34.593968&lng=-58.413882&vel=0.0");
+	    			   		
 	    			   		Log.i(TAG, "[Handler] ENVIAR URL: "+urlCatLoc );		//DEBUG
 	    			        try
 	    			        {
