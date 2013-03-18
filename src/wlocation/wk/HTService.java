@@ -191,7 +191,7 @@ public class HTService extends Activity  implements Runnable
 					    		    	 {
 					    		    		 
 					    		    		 Log.i(TAG, "[Handler] RESPONSE : "+objT.getResponse());		//DEBUG
-					    		    		 
+					    		    		 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					    		    		 ///TODO: CATEGORYLocation deberian ser dos clases, pero todavia no probe el gson para dos objetos uno dentro de otro FD v15.3.13
 				    		    			CategoryLocation[] arrobjCatLoc = gson.fromJson(objT.getResponse(), CategoryLocation[].class);
 				    		    			
