@@ -3,75 +3,82 @@ package domain;
 public class CategoryLocation {
 
 	private Long idCategory;
-	private Long idLocal;
 	private String strCategoryName;
-	private String strLocalName;
-	private String strLatitudLocal;
-	private String strLongitudLocal;
+
+	private Long idLocal;
+	private String localname;
+	private String latitudlocal;
+	private String longitudlocal;
 	
 	public CategoryLocation()
 	{
 		
 	}
-	public CategoryLocation(Long idCat,Long idLoc,String CatName,String LocalName,String Latit,String Longi)
+	public CategoryLocation(Long idCat,Long idLoc,String catname,String localname,String lat,String lng)
 	{
-		this.idCategory=idCat;
+		this.idCategory=idCat;	
+		this.strCategoryName=catname;
 		this.idLocal=idLoc;
-		this.strCategoryName=CatName;
-		this.strLocalName=LocalName;
-		this.strLatitudLocal=Latit;
-		this.strLongitudLocal=Longi;
+		this.localname=localname;
+		this.latitudlocal=lat;
+		this.longitudlocal=lng;
+		
 	}
-	
-	public Long getIdCategory()
-	{
-		return idCategory;
-	}
-	public Long getIdLocal()
-	{
-		return idLocal;
-	}
-	public String getCategoryName()
-	{
-		return strCategoryName;
-	}
-	public String getLocalName()
-	{
-		return this.strLocalName;
-	}
-	public String getLatitudLocal()
-	{
-		return strLatitudLocal;
-	}
-	public String getLongitudLocal()
-	{
-		return strLongitudLocal;
-	}
-	
 	
 	public void setIdCategory(Long idCat)
 	{
 		this.idCategory=idCat;
 		
 	}
-	public void setIdLocal(Long idLoc)
+	public Long getIdCategory()
 	{
-		this.idLocal=idLoc;
+		return idCategory;
+	}
+
+	public String getCategoryName()
+	{
+		return strCategoryName;
 	}
 	public void setCategoryName(String CatName)
 	{
 		this.strCategoryName=CatName;
 	}
+
+	public void setIdLocal(Long idLoc)
+	{
+		this.idLocal=idLoc;
+	}
+	public Long getIdLocal()
+	{
+		return idLocal;
+	}
+	public String getLocalName()
+	{
+		return this.localname;
+	}
+	
+	public String getLatitudLocal()
+	{
+		return latitudlocal;
+	}
+	public String getLongitudLocal()
+	{
+		return longitudlocal;
+	}
+	
+
 	public void setLocalName(String LocName)
 	{
-		this.strLocalName=LocName;
+		this.localname=LocName;
 	}
 	public void setLatitudLocal(String LatLoc)
 	{
-		this.strLatitudLocal=LatLoc;
+		this.latitudlocal=LatLoc;
 	}
 	public void setLongLocal(String LongLoc)
 	{
-		this.strLongitudLocal=LongLoc;
+		this.longitudlocal=LongLoc;
 	}
+
+
 }

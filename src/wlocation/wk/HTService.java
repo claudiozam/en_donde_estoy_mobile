@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 
-import metodos.MetodosMapas;
+import metodos.RequestTask;
+
 import com.google.gson.Gson;
 
 import domain.CategoryLocation;
@@ -154,7 +155,8 @@ public class HTService extends Activity  implements Runnable
 	    			   		final String json = gson.toJson(objGps); 
 	    			   		
 	    			   		//String urlCatLoc = new String("http://192.168.252.129:3333/location_points/near_location_points.json?lat=-34.593968&lng=-58.413883");
-	    			   		String urlCatLoc = new String("http://192.168.252.129:3333/location_points/near_location_points.json?"+json);
+	    			   		//String urlCatLoc = new String("http://192.168.252.129:3333/location_points/near_location_points.json?"+json);
+	    			   		String urlCatLoc = new String("http://sharedpc.dnsalias.com:3001/location_points/near_location_points.json?"+json);
 	    			   		Log.i(TAG, "[Handler] ENVIAR URL: "+urlCatLoc );		//DEBUG
 	    			        try
 	    			        {
@@ -188,6 +190,7 @@ public class HTService extends Activity  implements Runnable
 					    		    		 
 					    		    		 Log.i(TAG, "[Handler] RESPONSE : "+objT.getResponse());		//DEBUG
 					    		    		 
+					    		    		 ///TODO: CATEGORYLocation deberian ser dos clases, pero todavia no probe el gson para dos objetos uno dentro de otro FD v15.3.13
 				    		    			CategoryLocation[] arrobjCatLoc = gson.fromJson(objT.getResponse(), CategoryLocation[].class);
 				    		    			
 				    		    			if(arrobjCatLoc.length>0)
