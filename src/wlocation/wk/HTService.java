@@ -175,7 +175,7 @@ public class HTService extends Activity  implements Runnable
 	    			        /////////////////////////////////////////////////////////////////////////////
 	    			      
 	    			        try
-	    			        {
+	    			        {	
 		    			       TimerState=false;	    			       
 					    	   new CountDownTimer(5000, 1000) {
 					    		     public void onTick(long millisUntilFinished) {			    		         

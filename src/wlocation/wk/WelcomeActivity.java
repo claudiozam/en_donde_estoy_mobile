@@ -34,16 +34,14 @@ public class WelcomeActivity extends Activity {
 	
 		SharedPreferences settings = getSharedPreferences("HT",MODE_PRIVATE);			//DEBUG
 		Log.i(Welcome,"[onCreate] CODE ACT: "+settings.getString("CodeActiv",null));	//DEBUG
-		
-		
+				
 		super.onCreate(savedInstanceState);	
 	    setContentView(R.layout.welcome);    
 
 	    Log.i(Welcome,"[onCreate] Dentro Content");
 	    
 	    Button button = (Button) findViewById(R.id.buttonIngresar);
-	    
-	    
+	    	    
 	    TextView txViewSenderTime = (TextView) findViewById(R.id.textViewSenderTime);
 	    
 	    button.setOnClickListener(new OnClickListener()
@@ -72,7 +70,7 @@ public class WelcomeActivity extends Activity {
 					    editor.commit();
 						
 					    Intent IntWelcome = null;
-					    Log.i(Welcome,"[onCreate] Voy a empezar activity. ");
+					    Log.i(Welcome,"[onCreate] Voy a empezar activity HTService. ");
 					    
 					    try
 					    {
