@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 public class WelcomeActivity extends Activity {
 
-	 public static String Welcome = "Welcome:";
+	 public static String TAG = "Welcome:";
 	//private TelephonyManager mTelManager = (TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
 
 	/** Called when the activity is first created. */
@@ -30,15 +30,15 @@ public class WelcomeActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
-		Log.i(Welcome,"[onCreate] Dentro OnCreate");
+		Log.i(TAG,"[onCreate] Dentro OnCreate");
 	
 		SharedPreferences settings = getSharedPreferences("HT",MODE_PRIVATE);			//DEBUG
-		Log.i(Welcome,"[onCreate] CODE ACT: "+settings.getString("CodeActiv",null));	//DEBUG
+		//Log.i(Welcome,"[onCreate] CODE ACT: "+settings.getString("CodeActiv",null));	//DEBUG
 				
 		super.onCreate(savedInstanceState);	
 	    setContentView(R.layout.welcome);    
 
-	    Log.i(Welcome,"[onCreate] Dentro Content");
+	    Log.i(TAG,"[onCreate] Dentro Content");
 	    
 	    Button button = (Button) findViewById(R.id.buttonIngresar);
 	    	    
@@ -48,7 +48,7 @@ public class WelcomeActivity extends Activity {
 	    {     
 			public void onClick(View v) 
 			{				
-				Log.i(Welcome,"[onCreate] Dentro OnClick");
+				Log.i(TAG,"[onCreate] Dentro OnClick");
 					
 				 final EditText edTextTime = (EditText) findViewById(R.id.editTextTime);
 				
@@ -56,7 +56,7 @@ public class WelcomeActivity extends Activity {
 			    ////////////////////////////// TIMER SENDER //////////////////////////////
 			    	String strTextTime=edTextTime.getText().toString();
 					
-					if(strTextTime!=null)			
+					if((strTextTime!=null)&&(Integer.valueOf(strTextTime)>0))			
 					{
 						SharedPreferences settings = getSharedPreferences("HT",MODE_PRIVATE);			   
 						SharedPreferences.Editor editor = settings.edit();
@@ -70,21 +70,21 @@ public class WelcomeActivity extends Activity {
 					    editor.commit();
 						
 					    Intent IntWelcome = null;
-					    Log.i(Welcome,"[onCreate] Voy a empezar activity HTService. ");
+					    Log.i(TAG,"[onCreate] Voy a empezar activity HTService. ");
 					    
 					    try
 					    {
 					    	IntWelcome=new Intent(getApplicationContext(),HTService.class);
 					    }catch(Exception Ex)
 					    {
-					    	Log.e(Welcome,"[onCreate] Exception Welcome Intent: "+Ex);	
+					    	Log.e(TAG,"[onCreate] Exception Welcome Intent: "+Ex);	
 					    }
 					    try
 						{
 					    	startActivity(IntWelcome);
 						}catch(Exception ex)
 						{
-							Log.i(Welcome,"[onCreate] Exception Welcome Start: "+ex);	
+							Log.i(TAG,"[onCreate] Exception Welcome Start: "+ex);	
 						}
 			
 					}else
