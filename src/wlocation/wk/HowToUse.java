@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import wlocation.wk.Files;
@@ -28,7 +30,8 @@ public class HowToUse extends Activity {
 	private String pathFiles="/CYS/";
     private String strNameFileCode="cyscod.txt";
 	private Files objFiles = new Files();
-	
+	 private CheckBox checkBoxRastreo; 
+	 private CheckBox checkBoxNear;
 	public String getDeviceID() 
     {
     	  TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -36,7 +39,27 @@ public class HowToUse extends Activity {
     	  return DEVICE_ID;
     }
 
-	@Override
+	
+	private OnCheckedChangeListener chlistener =new OnCheckedChangeListener() {			 
+		 public void onCheckedChanged(CompoundButton buttonview, boolean isChecked) {
+			 if(isChecked){
+				 Log.i(HowToUse,"[onCreate] IS CHECKED");
+				 switch(buttonview.getId())
+				 {
+				     case R.id.checkBoxNearLocation:
+				    	 Log.i(HowToUse,"[onCreate] NEAR IS CHECKED");
+				    	 checkBoxNear.setChecked(true);
+				    	 checkBoxRastreo.setChecked(false);
+				          
+				          break;
+				     case R.id.checkBoxRastreo:
+				    	 Log.i(HowToUse,"[onCreate] RASTREO IS CHECKED");
+				          checkBoxRastreo.setChecked(true);
+				          checkBoxNear.setChecked(false);				          
+				          break;				        	 
+				 }
+			 }			  
+		 }};
 	public void onCreate(Bundle savedInstanceState) 
 	{	    
 		 super.onCreate(savedInstanceState);
@@ -45,18 +68,13 @@ public class HowToUse extends Activity {
 	 
 	     final EditText etxUser=(EditText) findViewById(R.id.EditTextUser);
 	     final EditText etxPass=(EditText) findViewById(R.id.EditTextPass);
-	     final CheckBox checkBoxRastreo = (CheckBox) findViewById(R.id.idcheckBoxRastreo);
-		 final CheckBox checkBoxNear = (CheckBox) findViewById(R.id.idcheckBoxNearLocation);
-		   
-		 if(checkBoxRastreo.isChecked())
-		 {
-			 checkBoxNear.setChecked(false);
-		 }else
-		 {
-			 checkBoxRastreo.setChecked(false);
-		 }
-		      
-	   	 
+	     checkBoxRastreo = (CheckBox) findViewById(R.id.checkBoxRastreo);
+	     checkBoxNear = (CheckBox) findViewById(R.id.checkBoxNearLocation);
+		    
+			 
+			 checkBoxRastreo.setOnCheckedChangeListener(chlistener);
+			 checkBoxNear.setOnCheckedChangeListener(chlistener);
+
 	   	 
 	     //////////////////////IMEI//////////////////////////////////////////
 	  /*
