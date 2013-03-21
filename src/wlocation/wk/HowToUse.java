@@ -2,6 +2,8 @@ package wlocation.wk;
 
 import java.util.Random;
 
+import domain.Definiciones;
+import domain.Definiciones.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +28,7 @@ public class HowToUse extends Activity {
 	private String pathFiles="/CYS/";
     private String strNameFileCode="cyscod.txt";
 	private Files objFiles = new Files();
+	
 	public String getDeviceID() 
     {
     	  TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -41,7 +44,7 @@ public class HowToUse extends Activity {
 	     setContentView(R.layout.howtouse);
 	 
 	     final EditText etxUser=(EditText) findViewById(R.id.EditTextUser);
-	     final EditText etxPass=(EditText) findViewById(R.id.editTextPass);
+	     final EditText etxPass=(EditText) findViewById(R.id.EditTextPass);
 	     final CheckBox checkBoxRastreo = (CheckBox) findViewById(R.id.idcheckBoxRastreo);
 		 final CheckBox checkBoxNear = (CheckBox) findViewById(R.id.idcheckBoxNearLocation);
 		   
@@ -56,7 +59,7 @@ public class HowToUse extends Activity {
 	   	 
 	   	 
 	     //////////////////////IMEI//////////////////////////////////////////
-	  /*  
+	  /*
 	    TextView txIDUser =(TextView) findViewById(R.id.TextViewNuevoUsuario);
 	    strImeiID=txIDUser.getText().toString();	    
 	    strImeiID=strImeiID+this.getDeviceID();
@@ -103,6 +106,7 @@ public class HowToUse extends Activity {
 	    //////////////////////////////////////////////////////////////////////////////////////////////////////////
      
 	    
+		 
 	  
 	    Button button = (Button) findViewById(R.id.buttonEmpezarAhora);
 	    button.setOnClickListener(new OnClickListener()
@@ -112,39 +116,61 @@ public class HowToUse extends Activity {
 				
 				Log.i(HowToUse,"[onCreate]Dentro OnClick");
 				
-				
-
-			   	if((etxUser.getText()!=null)&&(etxPass.getText()!=null))
+			   	if((etxUser.getText()!=null)&&(etxPass.getText()!=null)&&(etxUser.getText().toString().length()>5))
 			   	{
-			   		if((checkBoxRastreo.isChecked())||(checkBoxNear.isChecked()))
-			   		{
-			   			
-						SharedPreferences settings = getSharedPreferences("HT",MODE_PRIVATE);			   
-						SharedPreferences.Editor editor = settings.edit();
-					    			    
-					    	//	Toast.makeText(appContext,"Mail ingresado: "+mail.getText().toString(),Toast.LENGTH_SHORT).show();
-							  
-						    editor.putString("HT_Start", "OK" );					    					
-						  //  editor.putString("CodeActiv",fnlstrCodeAct  );		//FD v19.3.13				    					
-						    editor.putString("ImeiID",strImeiID );
-						    editor.putString("User",strImeiID );
-						    
-						    editor.commit();
+			   		if(etxPass.getText().toString().length()==Definiciones.Definicionesgenerales.incantdigitosPass)
+				   	{
+			   			if((checkBoxRastreo.isChecked())||(checkBoxNear.isChecked()))
+				   		{
+				   			
+							SharedPreferences settings = getSharedPreferences("HT",MODE_PRIVATE);			   
+							SharedPreferences.Editor editor = settings.edit();
+						    			    
+						    	//	Toast.makeText(appContext,"Mail ingresado: "+mail.getText().toString(),Toast.LENGTH_SHORT).show();
 							
-						    try
-						    {
-						    	Log.e(HowToUse,"[onCreate]Voy a empezar Welcome");
-						    	startActivity(new Intent(getApplicationContext(),WelcomeActivity.class));
-						    }catch(Exception ex)
-						    {
-						    	Log.e(HowToUse,"[onCreate]Exception startAct How: "+ex);
-						    }
-						    //		startActivity(new Intent(appContext,PositionCYS.class));   
-						    
+							
+							    editor.putString("HT_Start", "OK" );					    					
+							  //  editor.putString("CodeActiv",fnlstrCodeAct  );		//FD v19.3.13				    					
+							    editor.putString("Imei",getDeviceID());
+							    editor.putString("User",etxUser.getText().toString());
+							    editor.putString("Pass",etxPass.getText().toString());
+							    if(checkBoxRastreo.isChecked())
+							    {
+							    	try
+								    {
+								    	Log.e(HowToUse,"[onCreate]Voy a empezar Welcome Rastreo");
+								    	startActivity(new Intent(getApplicationContext(),WelcomeActivity.class));
+								    }catch(Exception ex)
+								    {
+								    	Log.e(HowToUse,"[onCreate]Exception startAct Welcome Rastreo: "+ex);
+								    }	
+							    }else
+							    {
+							    	//TODO Reemplazar por activity de near location
+							    	try
+								    {
+								    	Log.e(HowToUse,"[onCreate]Voy a empezar Near Location");
+								    	startActivity(new Intent(getApplicationContext(),WelcomeActivity.class));
+								    }catch(Exception ex)
+								    {
+								    	Log.e(HowToUse,"[onCreate]Exception startAct How: "+ex);
+								    }
+							    }
+							    		
+							    editor.commit();
+								
+							    
+							    //		startActivity(new Intent(appContext,PositionCYS.class));   
+							    
+				   		}else
+				   		{
+				   			
+				   			Log.i(HowToUse,"[onCreate]CHECKBOX SIN SELECCION");
+				   			return;
+				   		}
 			   		}else
 			   		{
-			   			
-			   			Log.i(HowToUse,"[onCreate]CHECKBOX SIN SELECCION");
+			   			Log.i(HowToUse,"[onCreate]Cantidad de DIGITOS PASSWORD INCORRECTA");
 			   			return;
 			   		}
 			   		

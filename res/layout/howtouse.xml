@@ -80,7 +80,7 @@
     	    android:textSize="14dp" />
             
             <EditText
-                android:id="@+id/editTextPass"
+                android:id="@+id/EditTextPass"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
