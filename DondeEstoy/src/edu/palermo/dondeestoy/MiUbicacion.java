@@ -22,14 +22,12 @@ public class MiUbicacion extends android.support.v4.app.FragmentActivity  implem
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mi_ubicacion);
-		
-		
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.mi_ubicacion);
 	    mapa = ((SupportMapFragment) getSupportFragmentManager()
 		        .findFragmentById(R.id.map)).getMap();
-		mapa.setMyLocationEnabled(true);
-		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+	    mapa.setMyLocationEnabled(true);
+	    LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 	    Criteria criteria = new Criteria();
 	    // metodo que obtiene el mejor proveedor de ubicacion en el telefono en el momento dado
 	    String provider = locationManager.getBestProvider(criteria, true);
@@ -55,10 +53,7 @@ public class MiUbicacion extends android.support.v4.app.FragmentActivity  implem
 
 	@Override
 	public void onLocationChanged(Location location) {
-		
-		  //mapa = ((SupportMapFragment) getSupportFragmentManager()
-	              //  .findFragmentById(R.id.map)).getMap();
-		  mapa.setMyLocationEnabled(true);
+	      mapa.setMyLocationEnabled(true);
 	      mapa.clear();
 	      
 	      if (location!=null)
@@ -72,14 +67,14 @@ public class MiUbicacion extends android.support.v4.app.FragmentActivity  implem
 	                .zoom(14)         
 	                .build();
 	         
-		      CameraUpdate camUpd3 =
-		      CameraUpdateFactory.newCameraPosition(camPos);
-		      mapa.animateCamera(camUpd3);
-		      mapa.addMarker(new MarkerOptions()
+		  CameraUpdate camUpd3 =
+		  CameraUpdateFactory.newCameraPosition(camPos);
+		  mapa.animateCamera(camUpd3);
+		  mapa.addMarker(new MarkerOptions()
 		        .position(latLong)
 		        .title("PUNTO DE INTERES 1"));
-		      mapa.animateCamera(camUpd3);
-		      }
+		  mapa.animateCamera(camUpd3);
+		}
 	}
 
 	@Override
