@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo2"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rlayoutBusqueda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textViewBarrio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@android:color/darker_gray"
+            android:text="Barrio" />
+        <Spinner
+            android:id="@+id/spinnerBarrio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewBarrio" 
+            android:entries="@array/barrios"
+            android:popupBackground="@android:color/darker_gray"
+            android:background="@android:color/darker_gray"
+            />
+        <TextView
+            android:id="@+id/textViewCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="80dp"
+            android:textColor="@android:color/darker_gray"
+            android:text="Categoria" />
+        <Spinner
+            android:id="@+id/spinnerCategoria"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewCategoria"             
+            android:entries="@array/categorias"
+            android:popupBackground="@android:color/darker_gray"
+            android:background="@android:color/darker_gray"
+            android:dropDownSelector="@android:color/black"
+            />
+        
+         <TextView
+            android:id="@+id/textViewNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerCategoria"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/darker_gray"
+            android:text="Nombre" />
+         
+        <!-- AutoCompleteTextView
+	        android:id="@+id/autoCompleteTextViewNonbre"
+
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewNombre"
+	        android:layout_width="fill_parent"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginLeft="1dp"
+	        android:ems="10"
+	        android:text="Ingrese el nombre" >
+         	<requestFocus />
+    	</AutoCompleteTextView> -->
+    	
+    	<EditText
+    	    android:id="@+id/autoCompleteTextViewNonbre"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_below="@+id/textViewNombre"
+    	    android:layout_marginLeft="2dp"
+    	    android:layout_marginRight="1dp"
+    	    android:layout_marginTop="3dp"
+    	    android:background="@android:color/darker_gray"
+    	    android:ems="10"
+    	    android:hint="Ingrese el nombre del lugar" />
+
+        <Button
+            android:id="@+id/buttonBuscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/autoCompleteTextViewNonbre"
+            android:layout_below="@+id/autoCompleteTextViewNonbre"
+            android:layout_marginTop="14dp"
+            android:text="Buscar" />
+        
+    </RelativeLayout>
+
+    
+
+</LinearLayout>

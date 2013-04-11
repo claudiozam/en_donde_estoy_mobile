@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Donde Estoy</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+     <string-array  name="barrios">
+        <item >San telmo</item>
+        <item >Balbanera</item>
+        <item >Microcentro</item>
+        <item >Recoleta</item>
+        <item >Palermo</item>
+        <item >Belgrano</item>
+        <item >Nuñez</item>
+        <item >Saavedra</item>
+        <item >Barrio norte</item>
+        <item >Almagro</item>
+        <item >Chacarita</item>        
+    </string-array>
+    
+    <string-array  name="categorias">
+       <item >Restaurantes</item>
+       <item >Bares</item>
+       <item >Clubes</item>
+       <item >Hoteles</item>
+       <item >Discotecas</item>
+       <item >Cines</item>
+    </string-array>
+
+</resources>
