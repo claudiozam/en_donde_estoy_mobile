@@ -3,12 +3,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".MenuPrincipalActivity" />
+    	<LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:gravity="center_horizontal"
+	    android:orientation="vertical" >
+	    
+	    <TextView
+	        android:id="@+id/TextViewej"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="25dp" />
+	
+	    <Button
+	        android:id="@+id/buttonReqDownCat"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/TextViewej"
+	        android:layout_marginTop="8dp"
+	        android:text="DESCARGAR CATEGORIAS" />
+	
+	    <Button
+	        android:id="@+id/buttonReqUpdateLoc"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/buttonReqDownCat"
+	        android:text="ACTUALIZAR POSICION" />
+	
+	    <Button
+	        android:id="@+id/buttonReqNearLoc"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/buttonReqUpdateLoc"
+	        android:text="NEAR LOCATIONS" />
+	
+	    	    <Button
+	        android:id="@+id/buttonReqCrearNewDevice"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/buttonReqNearLoc"
+	        android:text="CREAR DEVICE" />
+	
+	    <Button
+	        android:id="@+id/buttonReqLogin"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:text="LOGIN" />
+	    
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/buttonReqNearLoc"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="10dp"
+	        android:text="@string/hello_world"
+	        tools:context=".MenuPrincipalActivity" />
+	
 
+	</LinearLayout>
 </RelativeLayout>

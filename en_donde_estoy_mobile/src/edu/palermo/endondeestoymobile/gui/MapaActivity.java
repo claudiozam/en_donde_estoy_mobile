@@ -1,5 +1,8 @@
 package edu.palermo.endondeestoymobile.gui;
 
+import android.app.Activity;
+
+/*
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
@@ -40,4 +43,14 @@ public class MapaActivity extends android.support.v4.app.FragmentActivity {
         .title("En donde estoy?"));
     }
 
+}
+
+*/
+
+public class MapaActivity extends Activity
+{
+	public MapaActivity()
+	{
+		
+	}
 }
