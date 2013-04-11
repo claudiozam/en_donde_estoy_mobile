@@ -76,13 +76,13 @@ public class MiUbicacion extends android.support.v4.app.FragmentActivity  implem
 		                				 .target(latLong)   
 		                				 .zoom(14)         
 		                				 .build();
-			  CameraUpdate camUpd3 =
-			  CameraUpdateFactory.newCameraPosition(camPos);
-			  mapa.animateCamera(camUpd3);
-			  mapa.addMarker(new MarkerOptions()
-			        		 .position(latLong)
-			        		 .title("PUNTO DE INTERES 1"));
-			  mapa.animateCamera(camUpd3);
+				 CameraUpdate camUpd3 =
+				 CameraUpdateFactory.newCameraPosition(camPos);
+				 mapa.animateCamera(camUpd3);
+				 mapa.addMarker(new MarkerOptions()
+				        		 .position(latLong)
+				        		 .title("PUNTO DE INTERES 1"));
+				 mapa.animateCamera(camUpd3);
 			}
 	    }
 	    catch(Exception ex)
