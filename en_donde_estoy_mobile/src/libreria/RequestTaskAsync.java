@@ -59,6 +59,7 @@ public class RequestTaskAsync extends AsyncTask<String, String, String>{
                 //Closes the connection.
                 response.getEntity().getContent().close();
                 Log.e(TAG, "[doInBackground] ErrorException IOEXCEPT" );		//DEBUG
+                //return null;
                 throw new IOException(statusLine.getReasonPhrase());
             }
         } catch (ClientProtocolException e) {
@@ -83,6 +84,7 @@ public class RequestTaskAsync extends AsyncTask<String, String, String>{
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         //Do anything with response..
+        
         
     }
 }

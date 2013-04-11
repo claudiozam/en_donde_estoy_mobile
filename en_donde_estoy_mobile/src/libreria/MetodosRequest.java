@@ -59,6 +59,7 @@ public class MetodosRequest {
 		   	 {
 		   		 Log.i(TAG, "[verificarUseryPass] RESPONSE NULL");		//DEBUG
 		   		 boresponse=false;
+		   		objT.cancel(true);
 		   		 return boresponse;
 		   	 }else		//////////////OBTUVE RESPUESTA DE ENVIO... CATEGORIAS ...
 		   	 {			   		 
@@ -76,7 +77,7 @@ public class MetodosRequest {
 		   	 }
         }catch(Exception ex)
         {
-        	Log.i(TAG, "[Handler] Exception: "+ex);		//DEBUG
+        	Log.i(TAG, "[verificarUseryPass] Exception: "+ex);		//DEBUG
         	boresponse=false;
         }
         return boresponse;		//Podria devolver un objeto de determinada clase
@@ -91,13 +92,13 @@ public class MetodosRequest {
    		//String urlCatLoc = new String("http://sharedpc.dnsalias.com:3001/location_points/user=cepita@gmail.com&pass=2345pepe");
    		String urlLoc = new String(Definiciones.Definicionesgenerales.servidor+"/devices/create.json?name="+namedevice+"&cat="+categoria);
    		
-   		Log.i(TAG, "[verificarUseryPass] ENVIAR URL: "+urlLoc );		//DEBUG
+   		Log.i(TAG, "[crearNuevoDevice] ENVIAR URL: "+urlLoc );		//DEBUG
         try
         {
         	objT = (RequestTaskAsync) new RequestTaskAsync().execute(urlLoc);
         }catch(Exception ex)
         {
-        	Log.i(TAG, "[verificarUseryPass] REQUEST EXCEPTION: "+ex );		//DEBUG
+        	Log.i(TAG, "[crearNuevoDevice] REQUEST EXCEPTION: "+ex );		//DEBUG
         	return false;
         }
        try
@@ -105,12 +106,13 @@ public class MetodosRequest {
     	   this.waitResponse(Definiciones.Definicionesgenerales.tiempoesperaenvio);
 	        if(objT.getResponse()==null)
 		   	 {
-		   		 Log.i(TAG, "[verificarUseryPass] RESPONSE NULL");		//DEBUG
+		   		 Log.i(TAG, "[crearNuevoDevice] RESPONSE NULL");		//DEBUG
+		   		objT.cancel(true);
 		   		 boresponse=false;
 		   		 return boresponse;
 		   	 }else		//////////////OBTUVE RESPUESTA DE ENVIO... CATEGORIAS ...
 		   	 {			   		 
-		   		 Log.i(TAG, "[verificarUseryPass] RESPONSE : "+objT.getResponse());		//DEBUG
+		   		 Log.i(TAG, "[crearNuevoDevice] RESPONSE : "+objT.getResponse());		//DEBUG
 		   		 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		   		
 		   		Response_CrearNuevoDeviceCategory responsenuevodevicecat=gson.fromJson(objT.getResponse(), Response_CrearNuevoDeviceCategory.class);
@@ -124,7 +126,7 @@ public class MetodosRequest {
 		   	 }
         }catch(Exception ex)
         {
-        	Log.i(TAG, "[Handler] Exception: "+ex);		//DEBUG
+        	Log.i(TAG, "[crearNuevoDevice] Exception: "+ex);		//DEBUG
         	boresponse=false;
         }
         return boresponse;		//Podria devolver un objeto de determinada clase
@@ -163,6 +165,8 @@ public class MetodosRequest {
 		    	 if(objT.getResponse()==null)
 		    	 {
 		    		 Log.i(TAG, "[obtenerLocacionesCercanas] RESPONSE NULL");		//DEBUG
+		    		 objT.cancel(true);
+		    		 return null;
 		    	 }else		//////////////OBTUVE RESPUESTA DE ENVIO... CATEGORIAS ...
 		    	 {		    		    		 
 		    		 Log.i(TAG, "[obtenerLocacionesCercanas] RESPONSE : "+objT.getResponse());		//DEBUG
@@ -222,6 +226,8 @@ public class MetodosRequest {
 		    	 if(objT.getResponse()==null)
 		    	 {
 		    		 Log.i(TAG, "[updateLocation] RESPONSE NULL");		//DEBUG
+		    		 objT.cancel(true);
+		    		 return false;
 		    	 }else		//////////////OBTUVE RESPUESTA DE ENVIO... CATEGORIAS ...
 		    	 {		    		    		 
 		    		 Log.i(TAG, "[updateLocation] RESPONSE : "+objT.getResponse());		//DEBUG
@@ -276,6 +282,7 @@ public class MetodosRequest {
 		       //  if(reqsync.Request(urlCatLoc)==null)
 		    	 {
 		    		 Log.i(TAG, "[actualizarCategoriasDisponibles] RESPONSE NULL");		//DEBUG
+		    		 objT.cancel(true);
 		    		 return null;
 		    	 }else		//////////////OBTUVE RESPUESTA DE ENVIO... CATEGORIAS ...
 		    	 {		    		    		 
