@@ -40,8 +40,8 @@ public class MenuPrincipalActivity extends Activity {
     		public void onClick(View v) 
     		{		
     			Gps gpsloc =new Gps();
-    			gpsloc.setLat(-23.3444);
-    			gpsloc.setLong(-32.2322);
+    			gpsloc.setLat(-22.222);
+    			gpsloc.setLong(-33.333);
     			try
     			{
 	    			ArrayList<CategoryPoints> listcatpoint=metreq.obtenerLocacionesCercanas(gpsloc);

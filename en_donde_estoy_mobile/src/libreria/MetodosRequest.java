@@ -148,7 +148,7 @@ public class MetodosRequest {
 
 		   		//String urlCatLoc = new String("Definiciones.Definicionesgenerales.servidor/locations/find_near_locations?"+json);
 		   		//String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/locations/find_near_locations?id=000000000000003&lat=-34.593968&lng=-58.413882");
-		   		String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/locations/find_near_locations?lat="+gpsloc.getLatitud()+"&lng="+gpsloc.getLongitud());
+		   		String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/location_points/near_location_points.json?lat="+gpsloc.getLatitud()+"&lng="+gpsloc.getLongitud());
 		   		
 		   		Log.i(TAG, "[obtenerLocacionesCercanas] ENVIAR URL: "+urlCatLoc );		//DEBUG
 		        try
