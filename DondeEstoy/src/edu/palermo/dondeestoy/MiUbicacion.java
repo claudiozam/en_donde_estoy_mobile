@@ -29,7 +29,7 @@ public class MiUbicacion extends FragmentActivity  implements LocationListener {
 		    setContentView(R.layout.mi_ubicacion);
 		    mapa = ((SupportMapFragment) getSupportFragmentManager()
 			        .findFragmentById(R.id.map)).getMap();
-		    //mapa.setMyLocationEnabled(true);
+		    mapa.setMyLocationEnabled(true);
 		    initializeLocation();
 	    }
 	    catch(Exception ex)

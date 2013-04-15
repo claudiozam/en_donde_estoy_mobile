@@ -23,11 +23,23 @@ public class MainActivity extends Activity {
 			public void onItemClick(AdapterView<?> parentView, View iv, int position,
 					long id) {
 				//Toast.makeText(getApplicationContext(), ""+position, Toast.LENGTH_SHORT).show();
-				Intent i,j,k;
+				Intent i;
 				switch(position){
 				case 0:
-					i= new Intent(getApplicationContext(),MiUbicacion.class);
-					i.putExtra("id", position);
+					i= new Intent(getApplicationContext(),MapaActivity.class);
+					// i.putExtra("id", position); ??
+					
+/*
+  					// Puntos de ejemplo! en este boton no deberian estar.
+					i.putExtra("puntos",
+							new PuntoMapa[] {
+							new PuntoMapa("punto 1", new com.google.android.gms.maps.model.LatLng(10, 10), "Este es el punto 1" ),
+							new PuntoMapa("punto 2", new com.google.android.gms.maps.model.LatLng(4, 4), "Este es el punto 2" ),
+							new PuntoMapa("punto 3", new com.google.android.gms.maps.model.LatLng(6, 6), "Este es el punto 3" )
+							}
+					);
+*/
+					
 					startActivity(i);
 					break;
 				case 1:

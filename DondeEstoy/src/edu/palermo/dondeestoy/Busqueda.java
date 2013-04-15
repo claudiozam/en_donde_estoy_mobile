@@ -14,13 +14,6 @@ public class Busqueda extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.busqueda_layout);
-
-		Intent i=getIntent();
-		//int position = (Integer) i.getExtras().get("id");
-		
-		//ImageView iv = (ImageView) findViewById(R.id.imageView);
-		//iv.setImageResource(AdaptadorImagenes.images[position]);
-		
 		
 		botonBuscar = (Button) findViewById(R.id.buttonBuscar);
 		
