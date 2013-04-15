@@ -28,7 +28,7 @@ public class MapaActivity extends FragmentActivity implements OnMyLocationChange
 		    mapa.setMyLocationEnabled(true);	
 		    
 		    Bundle parameters = getIntent().getExtras();
-		    if (parameters.containsKey("puntos"))
+		    if (parameters != null && parameters.containsKey("puntos"))
 		    {
 		    	Object[] puntos = (Object[]) parameters.getSerializable("puntos");
 		    	
@@ -46,9 +46,7 @@ public class MapaActivity extends FragmentActivity implements OnMyLocationChange
 		    	// centrar en mi ubicacion actual.
 		    	mapa.setOnMyLocationChangeListener(this);
 		    }
-		    
-		    Location l = mapa.getMyLocation();
-		    if (l!=null) onMyLocationChange(l);
+
 /*	    }
 	    catch(Exception ex)
 	    {
