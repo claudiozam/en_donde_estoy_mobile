@@ -2,12 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_splash"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Splash" >
+    
+    <ImageView android:layout_width="wrap_content" android:id="@+id/imageViewFondoInicio"
+ android:src="@drawable/fondo_inicio" android:layout_height="wrap_content"
+ android:scaleType="centerCrop"></ImageView>
 
- 
+ <TextView
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:layout_marginTop="45dp"
+     android:gravity="center"
+     android:text="Donde estoy"
+     android:textSize="40sp" />
+
 </RelativeLayout>
