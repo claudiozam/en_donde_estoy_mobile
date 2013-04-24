@@ -1,20 +1,26 @@
 package edu.palermo.dondeestoy.rest;
 
+import java.net.URI;
 import java.util.*;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import edu.palermo.dondeestoy.bo.BaseResponse;
 import edu.palermo.dondeestoy.bo.LocationPoint;
 import edu.palermo.dondeestoy.bo.NearLocationPointsResponse;
 import edu.palermo.dondeestoy.bo.Requestclass;
+import edu.palermo.dondeestoy.bo.Requestclass.Request_UpdateLocation;
 import edu.palermo.dondeestoy.bo.Responseclass;
 
 import android.util.Log;
@@ -51,10 +57,7 @@ public class ApiService {
 	 
 	public Responseclass.Response_CategoriasDisponibles getCategoriasDisponibles() {
 
-		Map<String, String> variables = new HashMap<String, String>();
-		
-       // variables.put("category", "all");
-             
+	
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
@@ -65,7 +68,7 @@ public class ApiService {
 		//String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/api/locations/get_all_categories");
 		String url = "http://192.168.0.28:3333/api/locations/get_all_categories";
 
-		ResponseEntity<Responseclass.Response_CategoriasDisponibles> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Responseclass.Response_CategoriasDisponibles.class, variables);
+		ResponseEntity<Responseclass.Response_CategoriasDisponibles> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Responseclass.Response_CategoriasDisponibles.class);
 		
 		Responseclass.Response_CategoriasDisponibles response_CategoriasDisponibles = responseEntity.getBody();
 		
@@ -127,16 +130,16 @@ public class ApiService {
 	
 	public boolean postUpdateLocation(double latitude,double longitude,int id) {
 
-		Map<String, String> variables = new HashMap<String, String>();
+		Map<String, Double> variables = new HashMap<String, Double>();
 			
-		Requestclass rq=new Requestclass();		
-		Requestclass.Request_UpdateLocation uplocation = rq.new Request_UpdateLocation(); 
+		 variables.put("latitude", latitude);
+		 variables.put("longitude",longitude);
 		 
+		Requestclass rq=new Requestclass();		
+		Requestclass.Request_UpdateLocation uplocation = rq.new Request_UpdateLocation();		 
 		uplocation.setLatitude(latitude);
 		uplocation.setLongitude(longitude);
-		
-        variables.put("latitude", String.valueOf(latitude));
-        variables.put("longitude", String.valueOf(longitude));
+		        
              
 		HttpHeaders requestHeaders = new HttpHeaders();
 		//requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
@@ -145,28 +148,14 @@ public class ApiService {
 		//HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 		HttpEntity<Requestclass.Request_UpdateLocation> requestEntity = new HttpEntity<Requestclass.Request_UpdateLocation>(uplocation, requestHeaders);
 		
-		
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 		
+		String url = "http://192.168.0.28:3333/api/devices/"+id+"/update_location";			
 		
-		MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
+		ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, BaseResponse.class,variables);
+		BaseResponse result = responseEntity.getBody();
 		
-		parts.add("latitude", latitude);
-		parts.add("longitude", longitude);
-		
-		//String url = "http://192.168.0.28:3333/api/devices/"+id+"/update_location";
-		String url = "http://192.168.0.28:3333/api/devices/1/update_location";
-		
-		String response = restTemplate.postForObject(url, uplocation, String.class);
-		//String response = restTemplate.postForObject(url, parts, String.class);
-		
-		Log.i("updatelocation","UPDATE RESPONSE:" +response);
-		
-		/*ResponseEntity<Responseclass.Response_TiposDisponibles> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Responseclass.Response_TiposDisponibles.class, variables);
-		
-		Responseclass.Response_TiposDisponibles response_TiposDisponibles = responseEntity.getBody();
-		*/
 		return true;
 	
 	}
