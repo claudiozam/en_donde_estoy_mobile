@@ -77,18 +77,24 @@ public class MainActivity extends Activity {
 		new Thread()
 		{
 		    public void run() {
-				ApiService apiService = new ApiService();
+		    	String baseURL = "http://10.129.100.47:3000";
+				ApiService apiService = new ApiService(baseURL);
 
 				//http://127.0.0.1:3000/api/locations/find_near_locations/-34.603723/-58.381593/all
 				//NearLocationPointsResponse locationPointsResponse = apiService.getNearLocationPoints(-34.603723, -58.381593);
-				NearLocationPointsResponse locationPointsResponse = apiService.getNearLocationPoints(25.158, 30.588);
-				if(locationPointsResponse.getCode().equals("000")) {
-					for (LocationPoint locationPoint : locationPointsResponse.getList()) {
-						Log.i("TEST", locationPoint.getLatitude() + " - " + locationPoint.getLongitude());
-					}
-				} else if(locationPointsResponse.getCode().equals("600")) {
-					Log.i("Test","No encontre nada en un radio de 5 kilomestros");
+				try {
+					NearLocationPointsResponse locationPointsResponse = apiService.getNearLocationPoints(25.158, 30.588);
+					if(locationPointsResponse.getCode().equals("000")) {
+						for (LocationPoint locationPoint : locationPointsResponse.getList()) {
+							Log.i("TEST", locationPoint.getLatitude() + " - " + locationPoint.getLongitude());
+						}
+					} else if(locationPointsResponse.getCode().equals("600")) {
+						Log.i("Test","No encontre nada en un radio de 5 kilomestros");
+					}	
+				} catch (Exception e) {
+					Log.e("MainActivity","Error en la llamda al API", e);
 				}
+				
 		    }
 		}.start();
 
