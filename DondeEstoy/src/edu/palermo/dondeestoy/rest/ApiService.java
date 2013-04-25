@@ -44,7 +44,7 @@ public class ApiService {
 		restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 		
 		String url = "http://192.168.1.106:3000/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
-
+		//String url = "http://192.168.0.28:3333/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
 		ResponseEntity<NearLocationPointsResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, NearLocationPointsResponse.class, variables);
 		
 		NearLocationPointsResponse nearLocationPointsResponse = responseEntity.getBody();
@@ -128,13 +128,8 @@ public class ApiService {
 	
 	}
 	
-	public boolean postUpdateLocation(double latitude,double longitude,int id) {
+	public BaseResponse postUpdateLocation(double latitude,double longitude,int id) {
 
-		Map<String, Double> variables = new HashMap<String, Double>();
-			
-		 variables.put("latitude", latitude);
-		 variables.put("longitude",longitude);
-		 
 		Requestclass rq=new Requestclass();		
 		Requestclass.Request_UpdateLocation uplocation = rq.new Request_UpdateLocation();		 
 		uplocation.setLatitude(latitude);
@@ -153,11 +148,48 @@ public class ApiService {
 		
 		String url = "http://192.168.0.28:3333/api/devices/"+id+"/update_location";			
 		
-		ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, BaseResponse.class,variables);
+		ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, BaseResponse.class);
 		BaseResponse result = responseEntity.getBody();
 		
-		return true;
+		
+		return result;
 	
 	}
+	
+	public BaseResponse postCreateDevice(String name,String description,int id_categoria,int id_type) {
+
+		
+		 
+		Requestclass rq=new Requestclass();		
+		Requestclass.Request_CrearNuevoDevice nuevodevice = rq.new Request_CrearNuevoDevice();		 
+		
+		nuevodevice.setCategory_id(id_categoria);
+		nuevodevice.setType_id(id_type);
+		nuevodevice.setDescription(description);
+		nuevodevice.setName(name);
+		     
+             
+		HttpHeaders requestHeaders = new HttpHeaders();
+		
+		//requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
+		requestHeaders.setContentType(new MediaType("application","json"));
+		
+		//HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+		HttpEntity<Requestclass.Request_CrearNuevoDevice> requestEntity = new HttpEntity<Requestclass.Request_CrearNuevoDevice>(nuevodevice, requestHeaders);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
+		
+		String url = "http://192.168.0.28:3333/api/devices/create";			
+		
+		ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, BaseResponse.class);
+	
+		BaseResponse result = responseEntity.getBody();
+		
+		
+		return result;
+	
+	}
+	
 	
 }
