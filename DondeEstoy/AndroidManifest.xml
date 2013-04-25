@@ -7,86 +7,86 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-   <uses-feature android:glEsVersion="0x00020000"
-              android:required="true"/>
 
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> 
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.INTERNET" />
-	<permission
-      android:name="edu.palermo.dondeestoy.permission.MAPS_RECEIVE"
-      android:protectionLevel="signature"/>
-	<uses-permission android:name="edu.palermo.dondeestoy.permission.MAPS_RECEIVE"/>
-	
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <permission
+        android:name="edu.palermo.dondeestoy.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="edu.palermo.dondeestoy.permission.MAPS_RECEIVE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps" />
+
         <activity
             android:name="edu.palermo.dondeestoy.Splash"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="edu.palermo.dondeestoy.MainActivity"
             android:label="@string/app_name" >
-           
         </activity>
-        
         <activity
             android:name="edu.palermo.dondeestoy.MiUbicacion"
-           
             android:label="@string/app_name" >
-            
         </activity>
         <activity
             android:name="edu.palermo.dondeestoy.Busqueda"
-            android:label="@string/app_name" 
-            android:windowSoftInputMode="stateAlwaysHidden"
-            >
-
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name="edu.palermo.dondeestoy.Configuracion"
             android:label="@string/app_name" >
             <intent-filter>
-               
             </intent-filter>
         </activity>
-         <activity
+        <activity
             android:name="edu.palermo.dondeestoy.ListViewItem"
-            android:label="@string/app_name" 
-            >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="edu.palermo.dondeestoy.ListResultado"
-            android:label="@string/app_name" 
-            >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="edu.palermo.dondeestoy.MapaActivity"
-            android:label="@string/app_name" 
-            >
+            android:label="@string/app_name" >
         </activity>
-       
-        <!-- Leandro API Key -->
-<!--         <meta-data android:name="com.google.android.maps.v2.API_KEY"
-           android:value="AIzaSyDMIjoObMzUCjNH0yqGOAu0ECsiHLxl9_w"/>  
- -->        
-        <!-- Gerardo API Key -->   
-        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+
+        <service
+            android:name=".LocationService"
+            android:enabled="true" />
+        <!-- Leonadro API Key -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDMIjoObMzUCjNH0yqGOAu0ECsiHLxl9_w" />
+
+        <!-- Gerardo API Key -->
+        <!--
+            <meta-data android:name="com.google.android.maps.v2.API_KEY"
            android:value="AIzaSyCIIgpJjiNVelyznOqJ29bXLWAqYcwPWDI"/> 
-        
+        -->
     </application>
 
 </manifest>
