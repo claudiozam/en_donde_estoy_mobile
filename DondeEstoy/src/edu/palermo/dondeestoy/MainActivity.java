@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
 		startService(new Intent(this, LocationService.class));
 	}
 	
-	private void ejemploDeLlamadaAlAPI() {
+	/*private void ejemploDeLlamadaAlAPI() {
 		
 		new Thread()
 		{
@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
 		    }
 		}.start();
 
-	}
+	}*/
 	
 	@Override
 	public void onBackPressed() {
