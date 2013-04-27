@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 		GridView gv = (GridView) findViewById(R.id.gridView);
 		
 		//ejemploDeLlamadaAlAPI();
-		//Inciarservicio();
+		Inciarservicio();
 		gv.setAdapter(new AdaptadorImagenes(this));	
 		gv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -72,8 +72,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void  Inciarservicio(){
-		
-		startService(new Intent(this, LocationService.class));
+		getApplicationContext().startService(new Intent(this, LocationService.class));
 	}
 	
 	/*private void ejemploDeLlamadaAlAPI() {

@@ -15,7 +15,7 @@ import android.widget.SimpleAdapter;
 
 public class ListResultado extends Activity{
 	
-	String[] countries = new String[] {
+	public static String[] countries = new String[] {
 	        "India",
 	        "Pakistan",
 	        "Sri Lanka",
@@ -28,7 +28,7 @@ public class ListResultado extends Activity{
 	        "Japan"
 	    };
 	 
-	    int[] flags = new int[]{
+	 public  static int[] flags = new int[]{
 	        R.drawable.india,
 	        R.drawable.pakistan,
 	        R.drawable.srilanka,
@@ -41,7 +41,7 @@ public class ListResultado extends Activity{
 	        R.drawable.japan
 	    };
 	 
-	    String[] currency = new String[]{
+	    public static String[] currency = new String[]{
 	        "Indian Rupee",
 	        "Pakistani Rupee",
 	        "Sri Lankan Rupee",
