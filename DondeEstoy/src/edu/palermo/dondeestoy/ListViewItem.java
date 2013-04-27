@@ -23,7 +23,7 @@ public class ListViewItem extends Activity implements OnClickListener {
 		String country = (String) i.getExtras().get("country");
 		int[] flags = (int[]) i.getExtras().get("flags");
 		TextView t = (TextView) findViewById(R.id.txtLeyenda);
-		t.setTextColor(Color.WHITE);
+		t.setTextColor(Color.BLACK);
 		t.setText(country);
 		t.setTextSize(30);
 		ImageView imageview = (ImageView) findViewById(R.id.imgFlag);
