@@ -16,8 +16,7 @@ public class Splash extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		Handler x = new Handler();
 		x.postDelayed(new SplashHandler(this), 2000);
-		
-		
+
 	}
 
 	@Override
@@ -26,20 +25,18 @@ public class Splash extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	class SplashHandler implements Runnable {
 		Activity splash;
-		
+
 		public SplashHandler(Activity splash) {
 			this.splash = splash;
 		}
-		public void run(){
-			startActivity(new Intent(getApplication(),MainActivity.class));
+
+		public void run() {
+			startActivity(new Intent(getApplication(), MainActivity.class));
 			splash.finish();
 		}
 
-		
 	}
-} 
-
-
+}

@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Busqueda extends Activity{
-	
+public class Busqueda extends Activity {
+
 	private Button botonBuscar;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,11 +23,11 @@ public class Busqueda extends Activity{
 
 		});
 	}
-	
+
 	private void eventoDelBotonBuscar(View arg0) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, ListResultado.class);
-		//TODO setear los datos de los filtros.
+		// TODO setear los datos de los filtros.
 		this.startActivity(intent);
 	}
 

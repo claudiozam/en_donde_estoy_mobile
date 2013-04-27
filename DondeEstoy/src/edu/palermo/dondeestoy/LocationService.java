@@ -1,4 +1,5 @@
 package edu.palermo.dondeestoy;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -16,13 +17,9 @@ public class LocationService extends Service {
 	public static LocationManager locationManager;
 	public MyLocationListener listener;
 	public Location previousBestLocation = null;
-	
-	
-
 	Intent intent;
 	int counter = 0;
 
-	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -31,12 +28,17 @@ public class LocationService extends Service {
 
 	@Override
 	public void onStart(Intent intent, int startId) {
-		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		listener = new MyLocationListener();
-		locationManager.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 4000, 0, listener);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				4000, 0, listener);
+		Log.i("onStart.LocationService()", "Service onStartCommand");
+		if (locationManager == null) {
+			Log.i("onStart.LocationService()", "Location Manager Nulo");
+			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			listener = new MyLocationListener();
+			locationManager.requestLocationUpdates(
+					LocationManager.NETWORK_PROVIDER, 4000, 0, listener);
+			locationManager.requestLocationUpdates(
+					LocationManager.GPS_PROVIDER, 4000, 0, listener);
+		}
+
 	}
 
 	@Override
@@ -130,7 +132,7 @@ public class LocationService extends Service {
 			if (isBetterLocation(loc, previousBestLocation)) {
 				loc.getLatitude();
 				loc.getLongitude();
-				Log.i("Latitude", Double.toString (loc.getLatitude()));
+				Log.i("Latitude", Double.toString(loc.getLatitude()));
 				Log.i("Longitude", Double.toString(loc.getLongitude()));
 				Log.i("Provider", loc.getProvider());
 				sendBroadcast(intent);
