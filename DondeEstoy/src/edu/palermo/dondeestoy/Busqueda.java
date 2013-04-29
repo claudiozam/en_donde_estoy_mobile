@@ -10,10 +10,10 @@ import android.widget.Spinner;
 import edu.palermo.dondeestoy.services.BusquedaService;
 import edu.palermo.dondeestoy.services.BusquedaServiceImplLocal;
 
-public class Busqueda extends Activity{
-	
+public class Busqueda extends Activity {
+
 	private Button botonBuscar;
-	
+
 	
 	private Spinner spinnerCategoria;
 	private Spinner spinnerLugar;
@@ -54,11 +54,11 @@ public class Busqueda extends Activity{
 
 		});
 	}
-	
+
 	private void eventoDelBotonBuscar(View arg0) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, ListResultado.class);
-		//TODO setear los datos de los filtros.
+		// TODO setear los datos de los filtros.
 		this.startActivity(intent);
 	}
 
