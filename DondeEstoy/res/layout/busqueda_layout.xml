@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="15dp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/black"
             android:text="Barrio" />
         <Spinner
             android:id="@+id/spinnerBarrio"
@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewBarrio" 
             android:entries="@array/barrios"
-            android:popupBackground="@android:color/darker_gray"
-            android:background="@android:color/darker_gray"
+
             />
         <TextView
             android:id="@+id/textViewCategoria"
@@ -33,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="80dp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/black"
             android:text="Categoria" />
         <Spinner
             android:id="@+id/spinnerCategoria"
@@ -41,9 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewCategoria"             
             android:entries="@array/categorias"
-            android:popupBackground="@android:color/darker_gray"
-            android:background="@android:color/darker_gray"
-            android:dropDownSelector="@android:color/black"
+
             />
         
          <TextView
@@ -53,7 +50,7 @@
             android:layout_below="@+id/spinnerCategoria"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="20dp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/black"
             android:text="Nombre" />
          
         <!-- AutoCompleteTextView
@@ -79,7 +76,7 @@
     	    android:layout_marginLeft="2dp"
     	    android:layout_marginRight="1dp"
     	    android:layout_marginTop="3dp"
-    	    android:background="@android:color/darker_gray"
+    	    
     	    android:ems="10"
     	    android:hint="Ingrese el nombre del lugar" />
 
