@@ -14,38 +14,36 @@ public class Busqueda extends Activity {
 
 	private Button botonBuscar;
 
-	
 	private Spinner spinnerCategoria;
 	private Spinner spinnerLugar;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.busqueda_layout);
 		botonBuscar = (Button) findViewById(R.id.buttonBuscar);
-		
-				
-		spinnerCategoria = (Spinner)  findViewById(R.id.spinnerCategoria);
-		spinnerLugar = (Spinner)  findViewById(R.id.spinnerBarrio);
 
-    	BusquedaService busquedaService = new BusquedaServiceImplLocal();
+		spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategoria);
+		spinnerLugar = (Spinner) findViewById(R.id.spinnerBarrio);
 
-        ArrayAdapter<Categoria> dataAdapterCategoria = new ArrayAdapter<Categoria>(this,
-    		android.R.layout.simple_spinner_item, busquedaService.getCategorias());
-        
-        dataAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategoria.setAdapter(dataAdapterCategoria);
-        
-    	
-        ArrayAdapter<Lugar> dataAdapterLugar = new ArrayAdapter<Lugar>(this,
-    		android.R.layout.simple_spinner_item, busquedaService.getLugares());
-        
-        dataAdapterLugar.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLugar.setAdapter(dataAdapterLugar);
-		
-		
-		
-		
+		BusquedaService busquedaService = new BusquedaServiceImplLocal();
+
+		ArrayAdapter<Categoria> dataAdapterCategoria = new ArrayAdapter<Categoria>(
+				this, android.R.layout.simple_spinner_item,
+				busquedaService.getCategorias());
+
+		dataAdapterCategoria
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinnerCategoria.setAdapter(dataAdapterCategoria);
+
+		ArrayAdapter<Lugar> dataAdapterLugar = new ArrayAdapter<Lugar>(this,
+				android.R.layout.simple_spinner_item,
+				busquedaService.getLugares());
+
+		dataAdapterLugar
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinnerLugar.setAdapter(dataAdapterLugar);
+
 		botonBuscar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {

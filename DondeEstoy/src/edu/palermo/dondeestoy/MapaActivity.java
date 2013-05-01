@@ -2,6 +2,7 @@ package edu.palermo.dondeestoy;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.palermo.dondeestoy.bo.LocationPoint;
@@ -20,7 +23,7 @@ import edu.palermo.dondeestoy.bo.NearLocationPointsResponse;
 import edu.palermo.dondeestoy.rest.ApiService;
 
 public class MapaActivity extends FragmentActivity implements
-		OnMyLocationChangeListener {
+		OnMyLocationChangeListener, OnMarkerClickListener {
 
 	private GoogleMap mapa = null;
 	private LatLng posicionActual;
@@ -36,6 +39,8 @@ public class MapaActivity extends FragmentActivity implements
 			mapa = ((SupportMapFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.mapa)).getMap();
 			mapa.setMyLocationEnabled(true);
+			mapa.setOnMarkerClickListener(this);
+
 			Bundle parameters = getIntent().getExtras();
 			if (parameters != null && parameters.containsKey("puntos")) {
 				Object[] puntos = (Object[]) parameters
@@ -131,5 +136,16 @@ public class MapaActivity extends FragmentActivity implements
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker arg0) {
+		Log.d("", Double.toString(arg0.getPosition().latitude));
+		Intent newListViewActivity = new Intent(this, ListViewItem.class);
+		newListViewActivity.putExtra("position", 1);
+		newListViewActivity.putExtra("country", ListResultado.countries[1]);
+		newListViewActivity.putExtra("flags", ListResultado.flags);
+		startActivity(newListViewActivity);
+		return true;
 	}
 }
