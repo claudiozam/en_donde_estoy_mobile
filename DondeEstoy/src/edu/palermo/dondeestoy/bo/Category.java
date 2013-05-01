@@ -1,12 +1,16 @@
-package libreria;
+package edu.palermo.dondeestoy.bo;
 
-public class Categoria {
-	private String name;
-	private String description;
+import com.google.gson.annotations.SerializedName;
+
+public class Category {
+	@SerializedName("id")
 	private int id;
+	@SerializedName("name")
+	private String name;
+	@SerializedName("description")
+	private String description;
 	
-	
-	public String getNombreCategoria()
+	public String getName()
 	{
 		return this.name;
 	}

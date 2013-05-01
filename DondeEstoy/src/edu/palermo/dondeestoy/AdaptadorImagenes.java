@@ -12,26 +12,31 @@ import android.widget.ImageView.ScaleType;
 
 public class AdaptadorImagenes extends BaseAdapter {
 
+<<<<<<< HEAD
 	public static int[] images = {
 			R.drawable.busqueda101,
 			R.drawable.dondeestoy102,
 			R.drawable.configuracion103
 	};
+=======
+	public static int[] images = { R.drawable.brujula, R.drawable.map,
+			R.drawable.config };
+>>>>>>> c6d33fa1b6a9024d629104403b4d99ee4c4bb8ee
 	private Context context;
-	
-	public AdaptadorImagenes(Context applicationContext){
-		context=applicationContext;
+
+	public AdaptadorImagenes(Context applicationContext) {
+		context = applicationContext;
 	}
-	
+
 	@Override
 	public int getCount() {
-		//number of datelements to be displayed
+		// number of datelements to be displayed
 		return images.length;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		
+
 		return null;
 	}
 
@@ -43,6 +48,7 @@ public class AdaptadorImagenes extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+<<<<<<< HEAD
 		View v = convertView;
 		if (v == null) {
 			 LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -66,6 +72,21 @@ public class AdaptadorImagenes extends BaseAdapter {
 	         
 		}
 		return v;
+=======
+		ImageView iv;
+		if (convertView != null) {
+			iv = (ImageView) convertView;
+
+		} else {
+			iv = new ImageView(context);
+			iv.setLayoutParams(new GridView.LayoutParams(180, 180));
+			iv.setScaleType(ScaleType.CENTER_CROP);
+			iv.setPadding(8, 100, 8, 20);
+
+		}
+		iv.setImageResource(images[position]);
+		return iv;
+>>>>>>> c6d33fa1b6a9024d629104403b4d99ee4c4bb8ee
 	}
 
 }

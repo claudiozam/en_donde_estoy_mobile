@@ -17,66 +17,57 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MiUbicacion extends FragmentActivity  implements LocationListener {
-	
+public class MiUbicacion extends FragmentActivity implements LocationListener {
+
 	private GoogleMap mapa = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-	    try
-	    {
-			super.onCreate(savedInstanceState);
-		    setContentView(R.layout.mi_ubicacion);
-		    mapa = ((SupportMapFragment) getSupportFragmentManager()
-			        .findFragmentById(R.id.map)).getMap();
-		    mapa.setMyLocationEnabled(true);
-		    initializeLocation();
-	    }
-	    catch(Exception ex)
-	    {
-	    	Log.e("MiUbicacion.Oncreate()", ex.getMessage());
-	    }
-    }
 
-    public void initializeLocation()
-    {
-    	try
-    	{
-	    	String provider=null;
-	    	LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-	    	// conprueba por unica vez si tiene gps encendido sino utiliza network.
-	    	if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER ) ) 
-	    	{
-	    		provider=LocationManager.GPS_PROVIDER;
-	    	}
-	    	else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-	        {
-	    		provider=LocationManager.NETWORK_PROVIDER;
-	        }		
-	    	
-	    	if (provider!=null)
-	    	{	
-	    		Location location = locationManager.getLastKnownLocation(provider);
-			if(location!=null)
-			{
-			    onLocationChanged(location);
+		try {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.mi_ubicacion);
+			mapa = ((SupportMapFragment) getSupportFragmentManager()
+					.findFragmentById(R.id.map)).getMap();
+			mapa.setMyLocationEnabled(true);
+			initializeLocation();
+		} catch (Exception ex) {
+			Log.e("MiUbicacion.Oncreate()", ex.getMessage());
+		}
+	}
+
+	public void initializeLocation() {
+		try {
+			String provider = null;
+			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			// conprueba por unica vez si tiene gps encendido sino utiliza
+			// network.
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				provider = LocationManager.GPS_PROVIDER;
+			} else if (locationManager
+					.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+				provider = LocationManager.NETWORK_PROVIDER;
 			}
-		    
-			locationManager.requestLocationUpdates(provider, 50, 0, this);
-	    	}
-    	}
-    	catch(Exception ex)
-    	{
-    		Log.e("MiUbicacion.initializeLocation",ex.getMessage());
-    	}
-    }
-    	
-   
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-       // getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
+
+			if (provider != null) {
+				Location location = locationManager
+						.getLastKnownLocation(provider);
+				if (location != null) {
+					onLocationChanged(location);
+				}
+
+				locationManager.requestLocationUpdates(provider, 50, 0, this);
+			}
+		} catch (Exception ex) {
+			Log.e("MiUbicacion.initializeLocation", ex.getMessage());
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
 
 	protected boolean isRouteDisplayed() {
 		return false;
@@ -84,54 +75,48 @@ public class MiUbicacion extends FragmentActivity  implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-	      
-		try
-	    {
-			  //mapa.setMyLocationEnabled(true);
-		      mapa.clear();
-		      
-		      if (location!=null)
-		      {
-		    	 double latitude = location.getLatitude();
-			  	 double longitude = location.getLongitude();
-				
-		         // aca el centro deberia ser nuestra ubicacion
-			  	 LatLng latLong = new LatLng(latitude, longitude);
-		         CameraPosition camPos = new CameraPosition.Builder()
-		                				 .target(latLong)   
-		                				 .zoom(14)         
-		                				 .build();
-				 // aca se debe agregar todos los markers que nos envien de acuerdo
-		         // a nuestra posicion
-		         CameraUpdate camUpd3 =
-				 CameraUpdateFactory.newCameraPosition(camPos);
-				 mapa.animateCamera(camUpd3);
-				 mapa.addMarker(new MarkerOptions()
-				 			.icon(BitmapDescriptorFactory
-			                .fromResource(R.drawable.location))
-				        		 .position(latLong)
-				        		 .title("PUNTO DE INTERES 1"));
-				 mapa.animateCamera(camUpd3);
+
+		try {
+			// mapa.setMyLocationEnabled(true);
+			mapa.clear();
+
+			if (location != null) {
+				double latitude = location.getLatitude();
+				double longitude = location.getLongitude();
+
+				// aca el centro deberia ser nuestra ubicacion
+				LatLng latLong = new LatLng(latitude, longitude);
+				CameraPosition camPos = new CameraPosition.Builder()
+						.target(latLong).zoom(14).build();
+				// aca se debe agregar todos los markers que nos envien de
+				// acuerdo
+				// a nuestra posicion
+				CameraUpdate camUpd3 = CameraUpdateFactory
+						.newCameraPosition(camPos);
+				mapa.animateCamera(camUpd3);
+				mapa.addMarker(new MarkerOptions()
+						.icon(BitmapDescriptorFactory
+								.fromResource(R.drawable.location))
+						.position(latLong).title("PUNTO DE INTERES 1"));
+				mapa.animateCamera(camUpd3);
 			}
-	    }
-	    catch(Exception ex)
-		{
-		   Log.e("MiUbicacion.onLocationChanged()", ex.getMessage());
+		} catch (Exception ex) {
+			Log.e("MiUbicacion.onLocationChanged()", ex.getMessage());
 		}
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 	}
 }

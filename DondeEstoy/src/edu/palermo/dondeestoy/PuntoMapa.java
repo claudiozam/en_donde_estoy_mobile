@@ -1,4 +1,5 @@
 package edu.palermo.dondeestoy;
+
 import java.io.Serializable;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -8,22 +9,21 @@ public class PuntoMapa implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4388381502500632493L;
-	private double Lat; 
+	private double Lat;
 	private double Lng;
 	private String Titulo;
 	private String Descripcion;
-	
-	public PuntoMapa(String titulo, LatLng ubicacion, String descripcion)
-	{
+
+	public PuntoMapa(String titulo, LatLng ubicacion, String descripcion) {
 		this.setUbicacion(ubicacion);
 		this.setTitulo(titulo);
 		this.setDescripcion(descripcion);
 	}
-	
-	public PuntoMapa(Object JSON) throws UnsupportedOperationException
-	{
+
+	public PuntoMapa(Object JSON) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
-		// La idea es que mandemos los resultados del api rest y acá "hidratar" el objeto.
+		// La idea es que mandemos los resultados del api rest y acá "hidratar"
+		// el objeto.
 	}
 
 	public LatLng getUbicacion() {
@@ -51,5 +51,5 @@ public class PuntoMapa implements Serializable {
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
 	}
-	
+
 }

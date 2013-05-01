@@ -20,6 +20,7 @@ public class Splash extends Activity {
 		setContentView(R.layout.splash_layout);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		Handler x = new Handler();
+<<<<<<< HEAD
 		x.postDelayed(new SplashHandler(), 2000);
 		
 		final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
@@ -30,6 +31,10 @@ public class Splash extends Activity {
         
         editor.commit();
 		
+=======
+		x.postDelayed(new SplashHandler(this), 2000);
+
+>>>>>>> c6d33fa1b6a9024d629104403b4d99ee4c4bb8ee
 	}
 
 	@Override
@@ -38,13 +43,24 @@ public class Splash extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+<<<<<<< HEAD
 	class SplashHandler implements Runnable {
 		public void run(){
 			startActivity(new Intent(getApplication(),MainActivity.class));
+=======
+
+	class SplashHandler implements Runnable {
+		Activity splash;
+
+		public SplashHandler(Activity splash) {
+			this.splash = splash;
 		}
 
-		
+		public void run() {
+			startActivity(new Intent(getApplication(), MainActivity.class));
+			splash.finish();
+>>>>>>> c6d33fa1b6a9024d629104403b4d99ee4c4bb8ee
+		}
+
 	}
-} 
-
-
+}
