@@ -1,19 +1,21 @@
 package edu.palermo.dondeestoy;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 
 public class AdaptadorImagenes extends BaseAdapter {
 
 	public static int[] images = {
-			R.drawable.brujula,
-			R.drawable.map,
-			R.drawable.config
+			R.drawable.busqueda101,
+			R.drawable.dondeestoy102,
+			R.drawable.configuracion103
 	};
 	private Context context;
 	
@@ -41,21 +43,29 @@ public class AdaptadorImagenes extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ImageView iv;
-		if(convertView!=null){
-			iv=(ImageView) convertView;
-			
+		View v = convertView;
+		if (v == null) {
+			 LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	         v = li.inflate(R.layout.grid_item_layout, null);
+	         TextView tv = (TextView)v.findViewById(R.id.grid_item_text);
+	         ImageView iv = (ImageView)v.findViewById(R.id.grid_item_image);
+	         switch (position) {
+	         case 0:
+	        	 tv.setText("Busqueda");
+	        	 iv.setImageResource(images[position]);
+	        	 break;
+	         case 1:
+	        	 tv.setText("Donde Estoy");
+	        	 iv.setImageResource(images[position]);
+	        	 break;
+	         case 2:
+	        	 tv.setText("Configuracion");
+	        	 iv.setImageResource(images[position]);
+	        	 break;
+	         }
+	         
 		}
-		else
-		{
-			iv=new ImageView(context);
-			iv.setLayoutParams(new GridView.LayoutParams(180,180));
-			iv.setScaleType(ScaleType.CENTER_CROP);
-			iv.setPadding(8, 100, 8,20);
-			
-		}
-		iv.setImageResource(images[position]);
-		return iv;
+		return v;
 	}
 
 }
