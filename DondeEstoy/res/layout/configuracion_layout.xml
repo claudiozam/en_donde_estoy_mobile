@@ -2,17 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_general_center"
+    android:background="@drawable/fondo2"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del servidor"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/darker_gray"
+        android:textColorHint="@android:color/darker_gray"
+        android:textColorLink="@android:color/darker_gray"
+        android:typeface="@android:color/darker_gray" />
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/editTextServidor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="Ingrese aqui el nombre del servidor" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonServidor1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar" />
 
 </LinearLayout>

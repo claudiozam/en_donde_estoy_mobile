@@ -33,7 +33,7 @@ public class ListResultado extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.configuracion_layout);
+		setContentView(R.layout.listview_result_layout);
 		List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
 		for (int i = 0; i < 10; i++) {
 			HashMap<String, String> hm = new HashMap<String, String>();
