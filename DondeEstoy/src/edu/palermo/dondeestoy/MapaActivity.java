@@ -85,6 +85,7 @@ public class MapaActivity extends FragmentActivity implements
 		Log.i("PUNTOS", Double.toHexString(p.getUbicacion().latitude));
 		MarkerOptions m = new MarkerOptions().position(p.getUbicacion())
 				.title(p.getTitulo()).snippet(p.getDescripcion());
+		
 		mapa.addMarker(m);
 		Puntos.add(p); // Guardo el punto por si lo quiero trackear despues.
 	}
@@ -141,6 +142,7 @@ public class MapaActivity extends FragmentActivity implements
 	@Override
 	public boolean onMarkerClick(Marker arg0) {
 		Log.d("", Double.toString(arg0.getPosition().latitude));
+		
 		Intent newListViewActivity = new Intent(this, ListViewItem.class);
 		newListViewActivity.putExtra("position", 1);
 		newListViewActivity.putExtra("country", ListResultado.countries[1]);

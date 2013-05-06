@@ -51,7 +51,7 @@ public class ApiService {
 	        
 	    	//Log.d(Tag,"VOY POR GET NEAR");
 			//String url = "http://192.168.1.106:3000/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
-			String url = "http://192.168.0.28:3333/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
+			String url = "http://10.129.11.46:3000/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
 			NearLocationPointsResponse nearLocationPointsResponse = null;
 			ResponseEntity<NearLocationPointsResponse> responseEntity = null;			
 			try
@@ -102,7 +102,7 @@ public class ApiService {
 			restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 			
 			//String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/api/locations/get_all_categories");
-			String url = "http://192.168.0.28:3333/api/locations/get_all_categories";
+			String url = "http://10.129.11.46:3000/api/locations/get_all_categories";
 	
 		try
 		{
@@ -152,7 +152,7 @@ public class ApiService {
 			restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 			
 			//String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/api/locations/get_all_categories");
-			String url = "http://192.168.0.28:3333/api/locations/{device}/get_location";
+			String url = "http://10.129.11.46:3000/api/locations/{device}/get_location";
 			
 			//String Prueba="{" +"/"+"location_point/"+":[{"+"/"+"latitude/"+":-22.22,"+"/"+"longitude/"+":23.23,"+"/"+"created_at/"+":" +"/"+"2013-03-24 18:06/"+"}],"+"/"+"code/"+":"+"/"+"000"+"/"+ "}";
 			
