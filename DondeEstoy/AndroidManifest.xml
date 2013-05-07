@@ -78,10 +78,10 @@
         <service
             android:name=".LocationService"
             android:enabled="true" />
-        <!-- Leonadro API Key -->
-        <!-- <meta-data
+        <!-- Leonardo API Key -->
+         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDMIjoObMzUCjNH0yqGOAu0ECsiHLxl9_w" /> -->
+            android:value="AIzaSyDMIjoObMzUCjNH0yqGOAu0ECsiHLxl9_w" />
 
         <!-- Gerardo API Key -->
         <!--
@@ -90,9 +90,9 @@
         -->
         
          <!-- Claudio API Key -->
-         <meta-data
+        <!--  <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyC2-qf8jAedHxsLEzBWFZvj1e_E1yid7YA" />
+            android:value="AIzaSyC2-qf8jAedHxsLEzBWFZvj1e_E1yid7YA" /> -->
         
     </application>
 

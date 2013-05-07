@@ -53,11 +53,11 @@ public class AdaptadorImagenes extends BaseAdapter {
 	         ImageView iv = (ImageView)v.findViewById(R.id.grid_item_image);
 	         switch (position) {
 	         case 0:
-	        	 tv.setText("Busqueda");
+	        	 tv.setText("Donde Estoy");
 	        	 iv.setImageResource(images[position]);
 	        	 break;
 	         case 1:
-	        	 tv.setText("Donde Estoy");
+	        	 tv.setText("Busqueda");
 	        	 iv.setImageResource(images[position]);
 	        	 break;
 	         case 2:

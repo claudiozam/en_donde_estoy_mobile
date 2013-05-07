@@ -140,11 +140,11 @@ public class MapaActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public boolean onMarkerClick(Marker arg0) {
-		Log.d("", Double.toString(arg0.getPosition().latitude));
+	public boolean onMarkerClick(Marker marker) {
+		Log.i("GetID", marker.getId());
 		
 		Intent newListViewActivity = new Intent(this, ListViewItem.class);
-		newListViewActivity.putExtra("position", 1);
+		newListViewActivity.putExtra("id",marker.getId());
 		newListViewActivity.putExtra("country", ListResultado.countries[1]);
 		newListViewActivity.putExtra("flags", ListResultado.flags);
 		startActivity(newListViewActivity);
