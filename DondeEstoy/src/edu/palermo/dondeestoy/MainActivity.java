@@ -44,12 +44,7 @@ public class MainActivity extends Activity {
 				Intent i;
 				switch (position) {
 				case 0:
-					i = new Intent(getApplicationContext(), Busqueda.class);
-					// i.putExtra("id", position);
-					startActivity(i);
-					break;
 
-				case 1:
 					i = new Intent(getApplicationContext(), MapaActivity.class);
 					// i.putExtra("id", position); ??
 
@@ -65,6 +60,12 @@ public class MainActivity extends Activity {
 					 * "Este es el punto 3" ) } );
 					 */
 
+					startActivity(i);
+					break;
+
+				case 1:
+					i = new Intent(getApplicationContext(), Busqueda.class);
+					// i.putExtra("id", position);
 					startActivity(i);
 					break;
 
