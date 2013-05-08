@@ -23,20 +23,18 @@ public class Configuracion extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.configuracion_layout);
 		
-		final EditText servidor = (EditText) findViewById(R.id.editTextServidor);
+		final EditText editTextServidor = (EditText) findViewById(R.id.editTextServidor);
 		Button botonGuardar = (Button) findViewById(R.id.buttonServidor1);
-		SharedPreferences settings = getSharedPreferences(NombrePref,0);
-		servidor.setText(settings.getString("SERVIDOR", "Servidor por defecto"));
 		
+		final Utils utils = new Utils(this);
+        
+		editTextServidor.setText(utils.getServerAddress());
+       			
 		
 		botonGuardar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	SharedPreferences settings = getSharedPreferences(NombrePref,0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("SERVIDOR", servidor.getText().toString());
-                
-                editor.commit();
+            	utils.saveServerAddress(editTextServidor.getText().toString());
             }
        });
 	}

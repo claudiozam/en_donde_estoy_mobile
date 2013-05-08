@@ -1,26 +1,38 @@
 package edu.palermo.dondeestoy;
 
+import edu.palermo.dondeestoy.bo.BaseResponse;
 import edu.palermo.dondeestoy.bo.LocationPoint;
 import edu.palermo.dondeestoy.bo.NearLocationPointsResponse;
 import edu.palermo.dondeestoy.rest.ApiService;
+import edu.palermo.dondeestoy.rest.ApiServiceException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 public class MainActivity extends Activity {
 
+	private static String TAG = "MainActivity";
+	private String imeiActual = "";
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
+
+		Utils utils = new Utils(this);
+		imeiActual = utils.getIMEI();
+
 		GridView gv = (GridView) findViewById(R.id.gridView);
 
+		this.RegistrarDevice();
 		// ejemploDeLlamadaAlAPI();
-		Inciarservicio();
+		this.Inciarservicio();
+
 		gv.setAdapter(new AdaptadorImagenes(this));
 		gv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -32,6 +44,12 @@ public class MainActivity extends Activity {
 				Intent i;
 				switch (position) {
 				case 0:
+					i = new Intent(getApplicationContext(), Busqueda.class);
+					// i.putExtra("id", position);
+					startActivity(i);
+					break;
+
+				case 1:
 					i = new Intent(getApplicationContext(), MapaActivity.class);
 					// i.putExtra("id", position); ??
 
@@ -49,11 +67,7 @@ public class MainActivity extends Activity {
 
 					startActivity(i);
 					break;
-				case 1:
-					i = new Intent(getApplicationContext(), Busqueda.class);
-					// i.putExtra("id", position);
-					startActivity(i);
-					break;
+
 				case 2:
 					i = new Intent(getApplicationContext(), Configuracion.class);
 					// i.putExtra("id", position);
@@ -65,6 +79,38 @@ public class MainActivity extends Activity {
 			}
 
 		});
+
+	}
+
+	private void RegistrarDevice() {
+		new Thread(new Runnable() {
+			public void run() {
+				ApiService apiService = new ApiService();
+				try {
+					BaseResponse baseResponse = apiService.postCreateDevice(
+							imeiActual, "Usuario Android",
+							Utils.PERSONAL_LOCATION_CATEGORY_ID,
+							Utils.MOVIL_LOCATION_TYPE_ID);
+
+					if (baseResponse.getCode().equals("000")) {
+						Log.i(TAG, "Device registrado");
+					} else {
+						Log.i(TAG, "El Device existe en la base de datos");
+					}
+					
+					
+					 baseResponse = apiService.postUpdateLocation(-59.9999, -34.3332, imeiActual);
+					
+				} catch (ApiServiceException e) {
+					// Toast.makeText(getApplicationContext(),
+					// "Error al registrar el celular en el servidor",
+					// Toast.LENGTH_SHORT).show();
+					// TODO Auto-generated catch block
+					Log.e(TAG, "Error al registrar el DEVICE", e);
+				}
+
+			}
+		}).start();
 
 	}
 

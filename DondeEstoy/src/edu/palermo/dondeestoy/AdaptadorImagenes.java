@@ -14,8 +14,8 @@ import android.widget.TextView;
 public class AdaptadorImagenes extends BaseAdapter {
 
 	public static int[] images = {
+			R.drawable.menu_item_buscador,	
 			R.drawable.menu_item_donde_estoy,
-			R.drawable.menu_item_buscador,
 			R.drawable.menu_item_config
 	};
 			

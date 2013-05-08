@@ -29,6 +29,16 @@ public class ApiService {
 
 	private final static String Tag="ApiService";
 	private final static int TIMEOUT=1;
+	private static String serverAddress = "";
+
+	public static String getServerAddress() {
+		return serverAddress;
+	}
+
+	public static void setServerAddress(String serverAddress) {
+		ApiService.serverAddress = serverAddress;
+	}
+
 	public NearLocationPointsResponse getNearLocationPoints(double lat, double lng) throws ApiServiceException {
 		
 			Map<String, String> variables = new HashMap<String, String>();
@@ -51,7 +61,7 @@ public class ApiService {
 	        
 	    	//Log.d(Tag,"VOY POR GET NEAR");
 			//String url = "http://192.168.1.106:3000/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
-			String url = "http://10.129.11.46:3000/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
+			String url = "http://" + serverAddress + "/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
 			NearLocationPointsResponse nearLocationPointsResponse = null;
 			ResponseEntity<NearLocationPointsResponse> responseEntity = null;			
 			try
@@ -61,7 +71,7 @@ public class ApiService {
 				return nearLocationPointsResponse;
 			}catch(HttpStatusCodeException e)
 			{
-				Log.e(Tag,"EXCEPTION HTTP exchange: "+e);
+				Log.e(Tag,"EXCEPTION HTTP exchange", e);
 			
 				if(e.getStatusCode()==HttpStatus.NOT_FOUND)
 				{
@@ -83,7 +93,7 @@ public class ApiService {
 			
 			}catch(Exception  e)
 			{
-				Log.e(Tag,"EXCEPTION exchange: "+e);
+				Log.e(Tag,"EXCEPTION exchange", e);
 				throw new ApiServiceException("ERROR GENERAL - FALLO HTTP REQUEST ó  HTTP RESPONSE");
 			}
 				
@@ -102,7 +112,7 @@ public class ApiService {
 			restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 			
 			//String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/api/locations/get_all_categories");
-			String url = "http://10.129.11.46:3000/api/locations/get_all_categories";
+			String url = "http://" + serverAddress + "/api/locations/get_all_categories";
 	
 		try
 		{
@@ -111,7 +121,7 @@ public class ApiService {
 			return response_CategoriasDisponibles;
 		}catch(HttpStatusCodeException e)
 		{
-			Log.e(Tag,"EXCEPTION HTTP exchange: "+e);
+			Log.e(Tag,"EXCEPTION HTTP exchange", e);
 		
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND)
 			{
@@ -133,7 +143,7 @@ public class ApiService {
 		
 		}catch(Exception  e)
 		{
-			Log.e(Tag,"EXCEPTION exchange: "+e);
+			Log.e(Tag,"EXCEPTION exchange ", e);
 			throw new ApiServiceException("ERROR GENERAL - FALLO HTTP REQUEST ó  HTTP RESPONSE");
 		}
 	}
@@ -152,7 +162,7 @@ public class ApiService {
 			restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 			
 			//String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/api/locations/get_all_categories");
-			String url = "http://10.129.11.46:3000/api/locations/{device}/get_location";
+			String url = "http://" + serverAddress + "/api/locations/{device}/get_location";
 			
 			//String Prueba="{" +"/"+"location_point/"+":[{"+"/"+"latitude/"+":-22.22,"+"/"+"longitude/"+":23.23,"+"/"+"created_at/"+":" +"/"+"2013-03-24 18:06/"+"}],"+"/"+"code/"+":"+"/"+"000"+"/"+ "}";
 			
@@ -165,7 +175,7 @@ public class ApiService {
 				return response_GetLocacionDevice;
 			}catch(HttpStatusCodeException e)
 			{
-				Log.e(Tag,"EXCEPTION HTTP exchange: "+e);
+				Log.e(Tag,"EXCEPTION HTTP exchange", e);
 			
 				if(e.getStatusCode()==HttpStatus.NOT_FOUND)
 				{
@@ -187,7 +197,7 @@ public class ApiService {
 			
 			}catch(Exception  e)
 			{
-				Log.e(Tag,"EXCEPTION exchange: "+e);
+				Log.e(Tag,"EXCEPTION exchange", e);
 				throw new ApiServiceException("ERROR GENERAL - FALLO HTTP REQUEST ó  HTTP RESPONSE");
 			}
 	}
@@ -207,7 +217,7 @@ public class ApiService {
 		restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 		
 		//String urlCatLoc = new String(Definiciones.Definicionesgenerales.servidor+"/api/locations/get_all_categories");
-		String url = "http://192.168.0.28:3333/api/locations/get_all_types";
+		String url = "http://" + serverAddress + "/api/locations/get_all_types";
 
 		try
 		{
@@ -216,7 +226,7 @@ public class ApiService {
 			return response_TiposDisponibles;
 		}catch(HttpStatusCodeException e)
 		{
-			Log.e(Tag,"EXCEPTION HTTP exchange: "+e);
+			Log.e(Tag,"EXCEPTION HTTP exchange ", e);
 		
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND)
 			{
@@ -238,13 +248,13 @@ public class ApiService {
 		
 		}catch(Exception  e)
 		{
-			Log.e(Tag,"EXCEPTION exchange: "+e);
+			Log.e(Tag,"EXCEPTION exchange", e);
 			throw new ApiServiceException("ERROR GENERAL - FALLO HTTP REQUEST ó  HTTP RESPONSE");
 		}
 	
 	}
 	
-	public BaseResponse postUpdateLocation(double latitude,double longitude,int id) {
+	public BaseResponse postUpdateLocation(double latitude,double longitude, String device) {
 
 		Requestclass rq=new Requestclass();		
 		Requestclass.Request_UpdateLocation uplocation = rq.new Request_UpdateLocation();		 
@@ -262,7 +272,7 @@ public class ApiService {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 		
-		String url = "http://192.168.0.28:3333/api/devices/"+id+"/update_location";			
+		String url = "http://" + serverAddress + "/api/devices/"+device+"/update_location";			
 		
 		ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, BaseResponse.class);
 		BaseResponse result = responseEntity.getBody();
@@ -296,7 +306,7 @@ public class ApiService {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 		
-		String url = "http://192.168.0.28:3333/api/devices/create";			
+		String url = "http://" + serverAddress + "/api/devices/create";			
 		
 		try{
 			ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, BaseResponse.class);	
@@ -304,7 +314,7 @@ public class ApiService {
 			return result;
 		}catch(HttpStatusCodeException e)
 		{
-			Log.e(Tag,"EXCEPTION HTTP exchange: "+e);
+			Log.e(Tag,"EXCEPTION HTTP exchange", e);
 		
 			if(e.getStatusCode()==HttpStatus.NOT_FOUND)
 			{
@@ -326,7 +336,7 @@ public class ApiService {
 		
 		}catch(Exception  e)
 		{
-			Log.e(Tag,"EXCEPTION exchange: "+e);
+			Log.e(Tag,"EXCEPTION exchange", e);
 			throw new ApiServiceException("ERROR GENERAL - FALLO HTTP REQUEST ó  HTTP RESPONSE");
 		}
 	
