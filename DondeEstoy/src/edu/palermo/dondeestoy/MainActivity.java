@@ -29,8 +29,8 @@ public class MainActivity extends Activity {
 
 		GridView gv = (GridView) findViewById(R.id.gridView);
 
-		this.RegistrarDevice();
-		// ejemploDeLlamadaAlAPI();
+		// this.RegistrarDevice();
+		//ejemploDeLlamadaAlAPI();
 		this.Inciarservicio();
 
 		gv.setAdapter(new AdaptadorImagenes(this));
@@ -39,8 +39,6 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parentView, View iv,
 					int position, long id) {
-				// Toast.makeText(getApplicationContext(), ""+position,
-				// Toast.LENGTH_SHORT).show();
 				Intent i;
 				switch (position) {
 				case 0:
@@ -65,13 +63,11 @@ public class MainActivity extends Activity {
 
 				case 1:
 					i = new Intent(getApplicationContext(), Busqueda.class);
-					// i.putExtra("id", position);
 					startActivity(i);
 					break;
 
 				case 2:
 					i = new Intent(getApplicationContext(), Configuracion.class);
-					// i.putExtra("id", position);
 					startActivity(i);
 					break;
 
@@ -98,10 +94,10 @@ public class MainActivity extends Activity {
 					} else {
 						Log.i(TAG, "El Device existe en la base de datos");
 					}
-					
-					
-					 baseResponse = apiService.postUpdateLocation(-59.9999, -34.3332, imeiActual);
-					
+
+					baseResponse = apiService.postUpdateLocation(-59.9999,
+							-34.3332, imeiActual);
+					Log.i(TAG, "Registrado");
 				} catch (ApiServiceException e) {
 					// Toast.makeText(getApplicationContext(),
 					// "Error al registrar el celular en el servidor",
@@ -120,26 +116,36 @@ public class MainActivity extends Activity {
 				new Intent(this, LocationService.class));
 	}
 
-	/*
-	 * private void ejemploDeLlamadaAlAPI() {
-	 * 
-	 * new Thread() { public void run() { ApiService apiService = new
-	 * ApiService();
-	 * 
-	 * //http://127.0.0.1:3000/api/locations/find_near_locations/-34.603723/-
-	 * 58.381593/all //NearLocationPointsResponse locationPointsResponse =
-	 * apiService.getNearLocationPoints(-34.603723, -58.381593);
-	 * NearLocationPointsResponse locationPointsResponse =
-	 * apiService.getNearLocationPoints(25.158, 30.588);
-	 * if(locationPointsResponse.getCode().equals("000")) { for (LocationPoint
-	 * locationPoint : locationPointsResponse.getList()) { Log.i("TEST",
-	 * locationPoint.getLatitude() + " - " + locationPoint.getLongitude()); } }
-	 * else if(locationPointsResponse.getCode().equals("600")) {
-	 * Log.i("Test","No encontre nada en un radio de 5 kilomestros"); } }
-	 * }.start();
-	 * 
-	 * }
-	 */
+	// private void ejemploDeLlamadaAlAPI() {
+
+	// new Thread() {
+	// public void run() {
+	// ApiService apiService = new ApiService();
+	//
+	//
+	// NearLocationPointsResponse locationPointsResponse = null;
+	// try {
+	// locationPointsResponse = apiService
+	// .getNearLocationPoints(25.158, 30.588);
+	// } catch (ApiServiceException e) {
+	// // TODO Auto-generated catch block
+	// Log.e("ERROR LLAMADO", e.getMessage());
+	// e.printStackTrace();
+	// }
+	// if (locationPointsResponse.getCode().equals("000")) {
+	// for (LocationPoint locationPoint : locationPointsResponse
+	// .getList()) {
+	// Log.i("TEST", locationPoint.getLatitude() + " - "
+	// + locationPoint.getLongitude());
+	// }
+	// } else if (locationPointsResponse.getCode().equals("600")) {
+	// Log.i("Test",
+	// "No encontre nada en un radio de 5 kilomestros");
+	// }
+	// }
+	// }.start();
+	//
+	// }
 
 	@Override
 	public void onBackPressed() {

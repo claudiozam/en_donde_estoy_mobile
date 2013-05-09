@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import edu.palermo.dondeestoy.bo.LocationPoint;
 import edu.palermo.dondeestoy.bo.NearLocationPointsResponse;
 import edu.palermo.dondeestoy.rest.ApiService;
+import edu.palermo.dondeestoy.rest.ApiServiceException;
 
 public class MapaActivity extends FragmentActivity implements
 		OnMyLocationChangeListener, OnMarkerClickListener {
@@ -85,7 +86,6 @@ public class MapaActivity extends FragmentActivity implements
 		Log.i("PUNTOS", Double.toHexString(p.getUbicacion().latitude));
 		MarkerOptions m = new MarkerOptions().position(p.getUbicacion())
 				.title(p.getTitulo()).snippet(p.getDescripcion());
-		
 		mapa.addMarker(m);
 		Puntos.add(p); // Guardo el punto por si lo quiero trackear despues.
 	}
@@ -111,10 +111,10 @@ public class MapaActivity extends FragmentActivity implements
 							"No encontre nada en un radio de 5 kilomestros");
 					return null;
 				}
-				return locationPointsResponse;
+				return null;
 			}
 
-			catch (Exception ex) {
+			catch (ApiServiceException ex) {
 				Log.e("NearpositionsTask.doInBackground", ex.getMessage());
 				return null;
 			}
@@ -145,8 +145,8 @@ public class MapaActivity extends FragmentActivity implements
 		
 		Intent newListViewActivity = new Intent(this, ListViewItem.class);
 		newListViewActivity.putExtra("id",marker.getId());
-		newListViewActivity.putExtra("country", ListResultado.countries[1]);
-		newListViewActivity.putExtra("flags", ListResultado.flags);
+		//newListViewActivity.putExtra("country", ListResultado.countries[1]);
+		//newListViewActivity.putExtra("flags", ListResultado.flags);
 		startActivity(newListViewActivity);
 		return true;
 	}

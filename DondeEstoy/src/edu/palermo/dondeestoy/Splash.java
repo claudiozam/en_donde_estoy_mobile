@@ -17,51 +17,46 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 public class Splash extends Activity {
-	
+
 	private static String TAG = "Splash";
-	private String imeiActual =""; 
-	
+	private String imeiActual = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_layout);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-		
-		final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
-		
+
+		final TelephonyManager tm = (TelephonyManager) getBaseContext()
+				.getSystemService(Context.TELEPHONY_SERVICE);
+
 		Utils utils = new Utils(this);
 		imeiActual = tm.getDeviceId();
 		Log.i(TAG, "IMEI: " + imeiActual);
-		
+
 		String serverAddress = utils.getServerAddress();
 		Log.i(TAG, "ServerAddress: " + serverAddress);
-		
+
 		utils.saveIMEI(imeiActual);
-		
+
 		ApiService.setServerAddress(serverAddress);
-		
+
 		Handler x = new Handler();
 		x.postDelayed(new SplashHandler(), 2000);
-				
-		
+
 	}
 
-
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	class SplashHandler implements Runnable {
-		public void run(){						
-			startActivity(new Intent(getApplication(),MainActivity.class));
+		public void run() {
+			startActivity(new Intent(getApplication(), MainActivity.class));
 		}
 
-		
 	}
-} 
-
-
+}

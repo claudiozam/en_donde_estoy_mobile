@@ -35,7 +35,7 @@ public class Utils {
 	
 	public String getServerAddress() {
 		SharedPreferences settings = context.getSharedPreferences(NombrePref, Context.MODE_PRIVATE);
-		return settings.getString("ServerAddres", "10.129.11.46:3000");
+		return settings.getString("ServerAddres", "192.168.1.104:3000");
 	}
 	
 }

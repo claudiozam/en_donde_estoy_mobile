@@ -21,15 +21,15 @@ public class ListViewItem extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listviewitem_layout);
 		Intent i = getIntent();
-		int position = (Integer) i.getExtras().get("position");
-		String country = (String) i.getExtras().get("country");
-		int[] flags = (int[]) i.getExtras().get("flags");
+		//int position = (Integer) i.getExtras().get("position");
+		String id = (String) i.getExtras().get("id");
+		//int[] flags = (int[]) i.getExtras().get("flags");
 		TextView t = (TextView) findViewById(R.id.txtLeyenda);
 		t.setTextColor(Color.BLACK);
-		t.setText(country);
+		t.setText(id);
 		t.setTextSize(30);
-		ImageView imageview = (ImageView) findViewById(R.id.imgFlag);
-		imageview.setImageResource(flags[position]);
+		//ImageView imageview = (ImageView) findViewById(R.id.imgFlag);
+		//imageview.setImageResource(flags[position]);
 
 		Button btn = (Button) findViewById(R.id.buttonVerEnElMapa);
 		btn.setOnClickListener(this);

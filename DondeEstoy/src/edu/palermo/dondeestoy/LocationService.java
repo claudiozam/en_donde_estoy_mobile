@@ -10,21 +10,24 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+import edu.palermo.dondeestoy.bo.BaseResponse;
+import edu.palermo.dondeestoy.rest.ApiService;
+import edu.palermo.dondeestoy.rest.ApiServiceException;
 
 public class LocationService extends Service {
-	//public static final String BROADCAST_ACTION = "Hello World";
+	// public static final String BROADCAST_ACTION = "Hello World";
 	private static final int ONE_MINUTE = 1000 * 60 * 1;
 	public static LocationManager locationManager;
 	public MyLocationListener listener;
 	public Location previousBestLocation = null;
 
-	//Intent intent;
+	// Intent intent;
 	int counter = 0;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		//intent = new Intent(BROADCAST_ACTION);
+		// intent = new Intent(BROADCAST_ACTION);
 	}
 
 	@Override
@@ -124,18 +127,54 @@ public class LocationService extends Service {
 	}
 
 	public class MyLocationListener implements LocationListener {
+		private String TAG = "MyLocationListener";
+		private String imeiActual;
+		private String serverAddress;
 
 		public void onLocationChanged(final Location loc) {
+			Utils utils = new Utils(getApplicationContext());
+			imeiActual = utils.getIMEI();
+			serverAddress = utils.getServerAddress();
 			Log.i("**************************************", "Location changed");
 			if (isBetterLocation(loc, previousBestLocation)) {
 				loc.getLatitude();
 				loc.getLongitude();
-				Log.i("Latitude", Double.toString(loc.getLatitude()));
-				Log.i("Longitude", Double.toString(loc.getLongitude()));
-				Log.i("Provider", loc.getProvider());
-				//sendBroadcast(intent);
-				Log.i("HashCode", "Start  Id:" + this.hashCode());
-				Log.i("**************************************", "PROBAR");
+				Log.d("Latitude", Double.toString(loc.getLatitude()));
+				Log.d("Longitude", Double.toString(loc.getLongitude()));
+				Log.d("Provider", loc.getProvider());
+				Log.d("HashCode", "Start  Id:" + this.hashCode());
+				Log.d("**************************************", "PROBAR.....");
+				try {
+					new Thread(new Runnable() {
+						public void run() {
+							ApiService apiService = new ApiService();
+							ApiService.setServerAddress(serverAddress);
+							try {
+								BaseResponse baseResponse = apiService
+										.postCreateDevice(
+												imeiActual,
+												"Usuario Android",
+												Utils.PERSONAL_LOCATION_CATEGORY_ID,
+												Utils.MOVIL_LOCATION_TYPE_ID);
+								if (baseResponse.getCode().equals("000")) {
+									Log.d(TAG, "Device registrado");
+								} else {
+									Log.d(TAG,
+											"El Device existe en la base de datos");
+								}
+								baseResponse = apiService.postUpdateLocation(
+										loc.getLatitude(), loc.getLongitude(),
+										imeiActual);
+								Log.d(TAG, "Registrado");
+							} catch (ApiServiceException e) {
+								Log.e(TAG, "Error al registrar el DEVICE", e);
+							}
+						}
+					}).start();
+				} catch (Exception ex) {
+					Log.e("mylocationService", ex.getMessage());
+				}
+
 			}
 		}
 
