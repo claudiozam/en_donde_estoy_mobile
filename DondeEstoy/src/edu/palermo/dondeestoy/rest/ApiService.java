@@ -1,8 +1,9 @@
 package edu.palermo.dondeestoy.rest;
 
 
-import java.util.*;
-
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,18 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import android.util.Log;
 import edu.palermo.dondeestoy.bo.BaseResponse;
-
 import edu.palermo.dondeestoy.bo.NearLocationPointsResponse;
 import edu.palermo.dondeestoy.bo.Requestclass;
 import edu.palermo.dondeestoy.bo.Responseclass;
-
-import android.util.Log;
 
 
 public class ApiService {
@@ -61,8 +59,9 @@ public class ApiService {
 	        
 	    	//Log.d(Tag,"VOY POR GET NEAR");
 			//String url = "http://192.168.1.106:3000/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
-			String url = "http://" + serverAddress + "/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
-			NearLocationPointsResponse nearLocationPointsResponse = null;
+	        String url = "http://" + serverAddress + "/api/locations/find_near_locations/{latitude}/{longitude}/{category}";
+	        Log.i("Nearlocations",url);
+	        NearLocationPointsResponse nearLocationPointsResponse = null;
 			ResponseEntity<NearLocationPointsResponse> responseEntity = null;			
 			try
 			{

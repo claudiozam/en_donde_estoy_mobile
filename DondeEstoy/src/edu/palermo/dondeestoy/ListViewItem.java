@@ -16,21 +16,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListViewItem extends Activity implements OnClickListener {
+	PuntoMapa puntomapa;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listviewitem_layout);
 		Intent i = getIntent();
-		//int position = (Integer) i.getExtras().get("position");
-		String id = (String) i.getExtras().get("id");
-		//int[] flags = (int[]) i.getExtras().get("flags");
-		TextView t = (TextView) findViewById(R.id.txtLeyenda);
-		t.setTextColor(Color.BLACK);
-		t.setText(id);
-		t.setTextSize(30);
-		//ImageView imageview = (ImageView) findViewById(R.id.imgFlag);
-		//imageview.setImageResource(flags[position]);
-
+		puntomapa = (PuntoMapa)i.getSerializableExtra("objpunto");
+		TextView txtViewDevice = (TextView) findViewById(R.id.txtDevice);
+		txtViewDevice.setTextColor(Color.BLACK);
+		txtViewDevice.setText(puntomapa.getDevice());
+		txtViewDevice.setTextSize(30);
+		
+		TextView txtViewdescription = (TextView) findViewById(R.id.txtdescription);
+		txtViewdescription.setTextColor(Color.BLACK);
+		txtViewdescription.setText(puntomapa.getDescription());
+		txtViewdescription.setTextSize(30);
+		
 		Button btn = (Button) findViewById(R.id.buttonVerEnElMapa);
 		btn.setOnClickListener(this);
 
@@ -46,14 +48,14 @@ public class ListViewItem extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		Intent i = getIntent();
 
-		PuntoMapa p = new PuntoMapa(i.getExtras().get("country").toString(), // titulo
-				new LatLng(-34f, -58f), // posicion
-				"Un pais (descripcion)" // descripcion
-		);
+		//PuntoMapa p = new PuntoMapa(i.getExtras().get("country").toString(), // titulo
+			//	new LatLng(-34f, -58f), // posicion
+				//"Un pais (descripcion)" // descripcion
+		//);
 
-		Intent mapa = new Intent(getApplicationContext(), MapaActivity.class);
-		mapa.putExtra("puntos", new PuntoMapa[] { p });
-
-		startActivity(mapa);
+		Intent imapa = new Intent(getApplicationContext(), MapaActivity.class);
+		imapa.putExtra("puntos", new PuntoMapa[] { puntomapa });
+		startActivity(imapa);
 	}
+	
 }

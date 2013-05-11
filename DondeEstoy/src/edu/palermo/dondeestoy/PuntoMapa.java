@@ -11,45 +11,59 @@ public class PuntoMapa implements Serializable {
 	private static final long serialVersionUID = 4388381502500632493L;
 	private double Lat;
 	private double Lng;
-	private String Titulo;
-	private String Descripcion;
+	private String Device;
+	private String Description;
+	private String Category;
+	
 
-	public PuntoMapa(String titulo, LatLng ubicacion, String descripcion) {
-		this.setUbicacion(ubicacion);
-		this.setTitulo(titulo);
-		this.setDescripcion(descripcion);
+	public PuntoMapa(String device, LatLng latLng, String description,String category) {
+		this.setLocation(latLng);
+		this.setDevice(device);
+		this.setDescription(description);
+		this.setCategory(category);
+		
 	}
 
 	public PuntoMapa(Object JSON) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
-		// La idea es que mandemos los resultados del api rest y acá "hidratar"
-		// el objeto.
 	}
 
-	public LatLng getUbicacion() {
+	public LatLng getLocation() {
 		return new LatLng(Lat, Lng);
 	}
 
-	public void setUbicacion(LatLng ubicacion) {
+	public void setLocation(LatLng latLong) {
 		// mapeo a float, porque LatLng no es serializable.
-		Lat = ubicacion.latitude;
-		Lng = ubicacion.longitude;
+		Lat = latLong.latitude;
+		Lng = latLong.longitude;
 	}
 
-	public String getTitulo() {
-		return Titulo;
+	public String getDevice() {
+		return Device;
 	}
 
-	public void setTitulo(String titulo) {
-		Titulo = titulo;
+	public void setDevice(String device) {
+		Device = device;
 	}
 
-	public String getDescripcion() {
-		return Descripcion;
+	public String getDescription() {
+		return Description;
 	}
 
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+	public void setDescription(String description) {
+		Description = description;
 	}
+
+	public String getCategory() {
+		return Category;
+	}
+
+	public void setCategory(String category) {
+		this.Category = category;
+	}
+
+	
+
+	
 
 }

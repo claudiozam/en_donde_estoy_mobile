@@ -10,12 +10,12 @@
     android:id="@+id/imgFlag"
     android:layout_width="175dp"
     android:layout_height="244dp"
-    android:layout_below="@+id/txtLeyenda"
+    android:layout_below="@+id/txtDevice"
     android:layout_centerHorizontal="true"
     android:src="@drawable/afghanistan" />
 
 <TextView
-    android:id="@+id/txtLeyenda"
+    android:id="@+id/txtDevice"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
@@ -23,13 +23,21 @@
     android:layout_marginTop="46dp"
     android:text="TextView" />
 
+<TextView
+    android:id="@+id/txtdescription"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_alignBottom="@+id/imgFlag"
+    android:text="TextView" />
+
 <Button
     android:id="@+id/buttonVerEnElMapa"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
+    android:layout_below="@+id/imgFlag"
     android:layout_centerHorizontal="true"
-    android:layout_marginBottom="126dp"
+    android:layout_marginTop="72dp"
     android:text="Ver en el mapa" />
 
 </RelativeLayout>

@@ -143,7 +143,7 @@ public class LocationService extends Service {
 				Log.d("Longitude", Double.toString(loc.getLongitude()));
 				Log.d("Provider", loc.getProvider());
 				Log.d("HashCode", "Start  Id:" + this.hashCode());
-				Log.d("**************************************", "PROBAR.....");
+				Log.d("**************************************", "***************");
 				try {
 					new Thread(new Runnable() {
 						public void run() {

@@ -1,7 +1,9 @@
 package edu.palermo.dondeestoy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -27,12 +29,11 @@ public class MapaActivity extends FragmentActivity implements
 		OnMyLocationChangeListener, OnMarkerClickListener {
 
 	private GoogleMap mapa = null;
+	private HashMap<String, PuntoMapa> pointMarkers = new HashMap<String, PuntoMapa>();
 	private LatLng posicionActual;
-	private ArrayList<PuntoMapa> Puntos = new ArrayList<PuntoMapa>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		try {
 
 			super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class MapaActivity extends FragmentActivity implements
 					for (int i = 0; i < puntos.length; i++) {
 						AgregarPunto((PuntoMapa) puntos[i]);
 					}
-					centrarMapa(((PuntoMapa) puntos[0]).getUbicacion());
+					centrarMapa(((PuntoMapa) puntos[0]).getLocation());
 				}
 			} else {
 				// centrar en mi ubicacion actual.
@@ -69,8 +70,6 @@ public class MapaActivity extends FragmentActivity implements
 				location.getLongitude());
 		posicionActual = latlong;
 		Log.d("MapaActivity.onMyLocationChange()", "Llamada a async task");
-		// centrarMapa(latlong);
-
 		NearpositionsTask nearpositionsTask = new NearpositionsTask();
 		nearpositionsTask.execute(posicionActual);
 
@@ -83,27 +82,32 @@ public class MapaActivity extends FragmentActivity implements
 	}
 
 	public void AgregarPunto(PuntoMapa p) {
-		Log.i("PUNTOS", Double.toHexString(p.getUbicacion().latitude));
-		MarkerOptions m = new MarkerOptions().position(p.getUbicacion())
-				.title(p.getTitulo()).snippet(p.getDescripcion());
-		mapa.addMarker(m);
-		Puntos.add(p); // Guardo el punto por si lo quiero trackear despues.
+		MarkerOptions m = new MarkerOptions().position(p.getLocation())
+				.title(p.getDevice()).snippet(p.getDescription());
+		Marker objMarker = mapa.addMarker(m);
+		pointMarkers.put(objMarker.getId(), p);
 	}
 
 	class NearpositionsTask extends
 			AsyncTask<LatLng, Void, NearLocationPointsResponse> {
+		ProgressDialog progressDialog;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = ProgressDialog.show(MapaActivity.this, "",
+                    "Procesando...");
+		}
 
 		@Override
 		protected NearLocationPointsResponse doInBackground(LatLng... latlng) {
 			try {
-
-				// TODO Auto-generated method stub
 				if (latlng == null) {
 					return null;
 				}
 				ApiService apiService = new ApiService();
 				NearLocationPointsResponse locationPointsResponse = apiService
-						.getNearLocationPoints(25.158, 30.588);
+						.getNearLocationPoints(latlng[0].latitude,
+								latlng[0].longitude);
 				if (locationPointsResponse.getCode().equals("000")) {
 					return locationPointsResponse;
 				} else if (locationPointsResponse.getCode().equals("600")) {
@@ -111,6 +115,7 @@ public class MapaActivity extends FragmentActivity implements
 							"No encontre nada en un radio de 5 kilomestros");
 					return null;
 				}
+				Log.i("postescute", locationPointsResponse.getCode());
 				return null;
 			}
 
@@ -126,28 +131,27 @@ public class MapaActivity extends FragmentActivity implements
 			mapa.clear();
 			if (resultPoints != null) {
 				for (LocationPoint locationPoint : resultPoints.getList()) {
-					PuntoMapa p = new PuntoMapa(locationPoint.getCategory(),
+					PuntoMapa p = new PuntoMapa(locationPoint.getDevice(),
 							new LatLng(locationPoint.getLatitude(),
 									locationPoint.getLongitude()),
+							locationPoint.getDevice_description(),
 							locationPoint.getCategory());
+
 					AgregarPunto(p);
-					// cuando se tenga la api definitiva no se debe centrar mas
-					// en las ubicaciones que se van a agregando.
-					centrarMapa(p.getUbicacion());
+					centrarMapa(p.getLocation());
 				}
 			}
+			progressDialog.dismiss();
 		}
 	}
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		Log.i("GetID", marker.getId());
-		
-		Intent newListViewActivity = new Intent(this, ListViewItem.class);
-		newListViewActivity.putExtra("id",marker.getId());
-		//newListViewActivity.putExtra("country", ListResultado.countries[1]);
-		//newListViewActivity.putExtra("flags", ListResultado.flags);
-		startActivity(newListViewActivity);
+		Intent intentListView = new Intent(this, ListViewItem.class);
+		PuntoMapa pmapa = pointMarkers.get(marker.getId());
+		intentListView.putExtra("objpunto", pmapa);
+		startActivity(intentListView);
 		return true;
 	}
 }
