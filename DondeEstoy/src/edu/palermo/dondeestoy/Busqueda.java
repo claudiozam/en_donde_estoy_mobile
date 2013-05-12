@@ -1,5 +1,9 @@
 package edu.palermo.dondeestoy;
 
+import java.util.ArrayList;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,7 +61,22 @@ public class Busqueda extends Activity {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, ListResultado.class);
 		// TODO setear los datos de los filtros.
+		intent.putExtra("resultadoBusqueda", setPuntosMapa());
 		this.startActivity(intent);
 	}
 
+	private ArrayList<PuntoMapa> setPuntosMapa() {
+		ArrayList<PuntoMapa> PuntosMapa = new ArrayList<PuntoMapa>();
+		double latitude=-34.6128;
+		double longitude=-58.4304;
+		for (int i = 0; i < 10; i++) {
+			
+			PuntosMapa.add(new PuntoMapa(String.valueOf(i), new LatLng(
+					latitude,longitude ), "PRUEBA" + String.valueOf(i),
+					"PERSONAL"));
+			latitude=latitude+ 0.002;
+			longitude=longitude+0.002;
+		}
+		return PuntosMapa;
+	}
 }

@@ -147,7 +147,6 @@ public class MapaActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		Log.i("GetID", marker.getId());
 		Intent intentListView = new Intent(this, ListViewItem.class);
 		PuntoMapa pmapa = pointMarkers.get(marker.getId());
 		intentListView.putExtra("objpunto", pmapa);
