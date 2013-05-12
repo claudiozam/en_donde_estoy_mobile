@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
-public class AdaptadorImagenes extends BaseAdapter {
+public class ImageAdapter extends BaseAdapter {
 
 	public static int[] images = {
 			R.drawable.menu_item_buscador,	
@@ -21,7 +21,7 @@ public class AdaptadorImagenes extends BaseAdapter {
 			
 	private Context context;
 	
-	public AdaptadorImagenes(Context applicationContext){
+	public ImageAdapter(Context applicationContext){
 		context=applicationContext;
 	}
 	

@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import edu.palermo.dondeestoy.services.BusquedaService;
 import edu.palermo.dondeestoy.services.BusquedaServiceImplLocal;
 
-public class Busqueda extends Activity {
+public class Searcher extends Activity {
 
 	private Button botonBuscar;
 
@@ -24,7 +24,7 @@ public class Busqueda extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.busqueda_layout);
+		setContentView(R.layout.search_layout);
 		botonBuscar = (Button) findViewById(R.id.buttonBuscar);
 
 		spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategoria);
@@ -32,7 +32,7 @@ public class Busqueda extends Activity {
 
 		BusquedaService busquedaService = new BusquedaServiceImplLocal();
 
-		ArrayAdapter<Categoria> dataAdapterCategoria = new ArrayAdapter<Categoria>(
+		ArrayAdapter<Category> dataAdapterCategoria = new ArrayAdapter<Category>(
 				this, android.R.layout.simple_spinner_item,
 				busquedaService.getCategorias());
 
@@ -40,7 +40,7 @@ public class Busqueda extends Activity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerCategoria.setAdapter(dataAdapterCategoria);
 
-		ArrayAdapter<Lugar> dataAdapterLugar = new ArrayAdapter<Lugar>(this,
+		ArrayAdapter<Place> dataAdapterLugar = new ArrayAdapter<Place>(this,
 				android.R.layout.simple_spinner_item,
 				busquedaService.getLugares());
 
@@ -64,14 +64,14 @@ public class Busqueda extends Activity {
 		intent.putExtra("resultadoBusqueda", setPuntosMapa());
 		this.startActivity(intent);
 	}
-
-	private ArrayList<PuntoMapa> setPuntosMapa() {
-		ArrayList<PuntoMapa> PuntosMapa = new ArrayList<PuntoMapa>();
+	//se agrego este metodo para cargar listview
+	private ArrayList<MapPoint> setPuntosMapa() {
+		ArrayList<MapPoint> PuntosMapa = new ArrayList<MapPoint>();
 		double latitude=-34.6128;
 		double longitude=-58.4304;
 		for (int i = 0; i < 20; i++) {
 			
-			PuntosMapa.add(new PuntoMapa(String.valueOf(i), new LatLng(
+			PuntosMapa.add(new MapPoint(String.valueOf(i), new LatLng(
 					latitude,longitude ), "PRUEBA" + String.valueOf(i),
 					"PERSONAL"));
 			latitude=latitude+ 0.002;

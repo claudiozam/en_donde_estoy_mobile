@@ -1,10 +1,10 @@
 package edu.palermo.dondeestoy;
 
-public class Lugar {
-	public Lugar() {
+public class Place {
+	public Place() {
 	}
 
-	public Lugar(Long id, String nombre) {
+	public Place(Long id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
 	}

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class PuntoMapa implements Serializable {
+public class MapPoint implements Serializable {
 	/**
 	 * 
 	 */
@@ -16,7 +16,7 @@ public class PuntoMapa implements Serializable {
 	private String Category;
 	
 
-	public PuntoMapa(String device, LatLng latLng, String description,String category) {
+	public MapPoint(String device, LatLng latLng, String description,String category) {
 		this.setLocation(latLng);
 		this.setDevice(device);
 		this.setDescription(description);
@@ -24,7 +24,7 @@ public class PuntoMapa implements Serializable {
 		
 	}
 
-	public PuntoMapa(Object JSON) throws UnsupportedOperationException {
+	public MapPoint(Object JSON) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 

@@ -21,7 +21,7 @@ public class ListResult extends Activity {
 			R.drawable.pakistan, R.drawable.srilanka, R.drawable.china,
 			R.drawable.bangladesh, R.drawable.nepal, R.drawable.afghanistan,
 			R.drawable.nkorea, R.drawable.skorea, R.drawable.japan };
-	private ArrayList<PuntoMapa> puntosMapa;
+	private ArrayList<MapPoint> mapPoints;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -29,17 +29,17 @@ public class ListResult extends Activity {
 		super.onCreate(savedInstanceState);
 		Intent i = getIntent();
 		setContentView(R.layout.listview_result_layout);
-		puntosMapa = (ArrayList<PuntoMapa>) i
+		mapPoints = (ArrayList<MapPoint>) i
 				.getSerializableExtra("resultadoBusqueda");
 
-		if (puntosMapa == null)
+		if (mapPoints == null)
 			return;
 
 		List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
-		for (PuntoMapa puntomapa : puntosMapa) {
+		for (MapPoint mapPoint : mapPoints) {
 			HashMap<String, String> hm = new HashMap<String, String>();
-			hm.put("device", "Dispositivo : " + puntomapa.getDevice());
-			hm.put("description", "Descripcion : " + puntomapa.getDescription());
+			hm.put("device", "Dispositivo : " + mapPoint.getDevice());
+			hm.put("description", "Descripcion : " + mapPoint.getDescription());
 			hm.put("img", Integer.toString(img[1]));
 			aList.add(hm);
 		}
@@ -57,7 +57,7 @@ public class ListResult extends Activity {
 
 				Intent intentListView = new Intent(ListResult.this,
 						ListViewItem.class);
-				intentListView.putExtra("objpunto", puntosMapa.get(position));
+				intentListView.putExtra("objpunto", mapPoints.get(position));
 				startActivity(intentListView);
 			}
 		});

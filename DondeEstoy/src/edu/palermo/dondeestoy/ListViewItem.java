@@ -1,7 +1,5 @@
 package edu.palermo.dondeestoy;
 
-
-
 import com.google.android.gms.maps.model.LatLng;
 
 import android.app.Activity;
@@ -16,23 +14,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListViewItem extends Activity implements OnClickListener {
-	PuntoMapa puntomapa;
+	private MapPoint mapPoint;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listviewitem_layout);
 		Intent i = getIntent();
-		puntomapa = (PuntoMapa)i.getSerializableExtra("objpunto");
+		mapPoint = (MapPoint) i.getSerializableExtra("objpunto");
 		TextView txtViewDevice = (TextView) findViewById(R.id.txtDevice);
 		txtViewDevice.setTextColor(Color.BLACK);
-		txtViewDevice.setText(puntomapa.getDevice());
+		txtViewDevice.setText(mapPoint.getDevice());
 		txtViewDevice.setTextSize(30);
-		
+
 		TextView txtViewdescription = (TextView) findViewById(R.id.txtdescription);
 		txtViewdescription.setTextColor(Color.BLACK);
-		txtViewdescription.setText(puntomapa.getDescription());
+		txtViewdescription.setText(mapPoint.getDescription());
 		txtViewdescription.setTextSize(30);
-		
+
 		Button btn = (Button) findViewById(R.id.buttonVerEnElMapa);
 		btn.setOnClickListener(this);
 
@@ -45,17 +44,11 @@ public class ListViewItem extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View arg0) {
+	public void onClick(View view) {
 		Intent i = getIntent();
-
-		//PuntoMapa p = new PuntoMapa(i.getExtras().get("country").toString(), // titulo
-			//	new LatLng(-34f, -58f), // posicion
-				//"Un pais (descripcion)" // descripcion
-		//);
-
-		Intent imapa = new Intent(getApplicationContext(), MapActivity.class);
-		imapa.putExtra("puntos", new PuntoMapa[] { puntomapa });
-		startActivity(imapa);
+		Intent iMap = new Intent(getApplicationContext(), MapActivity.class);
+		iMap.putExtra("puntos", new MapPoint[] { mapPoint });
+		startActivity(iMap);
 	}
-	
+
 }

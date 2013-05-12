@@ -29,15 +29,15 @@ public class MapActivity extends FragmentActivity implements
 		OnMyLocationChangeListener, OnMarkerClickListener {
 
 	private GoogleMap mapa = null;
-	private HashMap<String, PuntoMapa> pointMarkers = new HashMap<String, PuntoMapa>();
-	private LatLng posicionActual;
+	private HashMap<String, MapPoint> pointMarkers = new HashMap<String, MapPoint>();
+	private LatLng currentPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		try {
 
 			super.onCreate(savedInstanceState);
-			setContentView(R.layout.mapa_layout);
+			setContentView(R.layout.map_layout);
 			mapa = ((SupportMapFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.mapa)).getMap();
 			mapa.setMyLocationEnabled(true);
@@ -50,9 +50,9 @@ public class MapActivity extends FragmentActivity implements
 
 				if (puntos.length > 0) {
 					for (int i = 0; i < puntos.length; i++) {
-						addPoint((PuntoMapa) puntos[i]);
+						addPoint((MapPoint) puntos[i]);
 					}
-					centerMap(((PuntoMapa) puntos[0]).getLocation());
+					centerMap(((MapPoint) puntos[0]).getLocation());
 				}
 			} else {
 				// centrar en mi ubicacion actual.
@@ -68,10 +68,10 @@ public class MapActivity extends FragmentActivity implements
 	public void onMyLocationChange(Location location) {
 		LatLng latlong = new LatLng(location.getLatitude(),
 				location.getLongitude());
-		posicionActual = latlong;
+		currentPosition = latlong;
 		Log.d("MapaActivity.onMyLocationChange()", "Llamada a async task");
 		NearpositionsTask nearpositionsTask = new NearpositionsTask();
-		nearpositionsTask.execute(posicionActual);
+		nearpositionsTask.execute(currentPosition);
 
 	}
 
@@ -81,7 +81,7 @@ public class MapActivity extends FragmentActivity implements
 		mapa.setOnMyLocationChangeListener(null);
 	}
 
-	public void addPoint(PuntoMapa p) {
+	public void addPoint(MapPoint p) {
 		MarkerOptions m = new MarkerOptions().position(p.getLocation())
 				.title(p.getDevice()).snippet(p.getDescription());
 		Marker objMarker = mapa.addMarker(m);
@@ -131,14 +131,14 @@ public class MapActivity extends FragmentActivity implements
 			mapa.clear();
 			if (resultPoints != null) {
 				for (LocationPoint locationPoint : resultPoints.getList()) {
-					PuntoMapa p = new PuntoMapa(locationPoint.getDevice(),
+					MapPoint mapPoint = new MapPoint(locationPoint.getDevice(),
 							new LatLng(locationPoint.getLatitude(),
 									locationPoint.getLongitude()),
 							locationPoint.getDevice_description(),
 							locationPoint.getCategory());
 
-					addPoint(p);
-					centerMap(p.getLocation());
+					addPoint(mapPoint);
+					centerMap(mapPoint.getLocation());
 				}
 			}
 			progressDialog.dismiss();
@@ -148,8 +148,8 @@ public class MapActivity extends FragmentActivity implements
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		Intent intentListView = new Intent(this, ListViewItem.class);
-		PuntoMapa pmapa = pointMarkers.get(marker.getId());
-		intentListView.putExtra("objpunto", pmapa);
+		MapPoint mapPoint = pointMarkers.get(marker.getId());
+		intentListView.putExtra("objpunto", mapPoint);
 		startActivity(intentListView);
 		return true;
 	}

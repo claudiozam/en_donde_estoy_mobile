@@ -16,12 +16,12 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
  
-public class Configuracion extends Activity {
+public class Settings extends Activity {
 	public static final String NombrePref = "DondeEstoyPref";
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.configuracion_layout);
+		setContentView(R.layout.settings_layout);
 		
 		final EditText editTextServidor = (EditText) findViewById(R.id.editTextServidor);
 		Button botonGuardar = (Button) findViewById(R.id.buttonServidor1);

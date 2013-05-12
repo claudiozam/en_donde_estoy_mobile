@@ -1,10 +1,10 @@
 package edu.palermo.dondeestoy;
 
-public class Categoria {
-	public Categoria() {
+public class Category {
+	public Category() {
 	}
 
-	public Categoria(Long id, String nombre) {
+	public Category(Long id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
 	}

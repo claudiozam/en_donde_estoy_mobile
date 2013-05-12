@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 		//ejemploDeLlamadaAlAPI();
 		this.Inciarservicio();
 
-		gv.setAdapter(new AdaptadorImagenes(this));
+		gv.setAdapter(new ImageAdapter(this));
 		gv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -62,12 +62,12 @@ public class MainActivity extends Activity {
 					break;
 
 				case 1:
-					i = new Intent(getApplicationContext(), Busqueda.class);
+					i = new Intent(getApplicationContext(), Searcher.class);
 					startActivity(i);
 					break;
 
 				case 2:
-					i = new Intent(getApplicationContext(), Configuracion.class);
+					i = new Intent(getApplicationContext(), Settings.class);
 					startActivity(i);
 					break;
 
