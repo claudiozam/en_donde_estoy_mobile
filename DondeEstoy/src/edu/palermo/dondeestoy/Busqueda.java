@@ -59,7 +59,7 @@ public class Busqueda extends Activity {
 
 	private void eventoDelBotonBuscar(View arg0) {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(this, ListResultado.class);
+		Intent intent = new Intent(this, ListResult.class);
 		// TODO setear los datos de los filtros.
 		intent.putExtra("resultadoBusqueda", setPuntosMapa());
 		this.startActivity(intent);
@@ -69,7 +69,7 @@ public class Busqueda extends Activity {
 		ArrayList<PuntoMapa> PuntosMapa = new ArrayList<PuntoMapa>();
 		double latitude=-34.6128;
 		double longitude=-58.4304;
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 20; i++) {
 			
 			PuntosMapa.add(new PuntoMapa(String.valueOf(i), new LatLng(
 					latitude,longitude ), "PRUEBA" + String.valueOf(i),

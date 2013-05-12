@@ -53,7 +53,7 @@ public class ListViewItem extends Activity implements OnClickListener {
 				//"Un pais (descripcion)" // descripcion
 		//);
 
-		Intent imapa = new Intent(getApplicationContext(), MapaActivity.class);
+		Intent imapa = new Intent(getApplicationContext(), MapActivity.class);
 		imapa.putExtra("puntos", new PuntoMapa[] { puntomapa });
 		startActivity(imapa);
 	}

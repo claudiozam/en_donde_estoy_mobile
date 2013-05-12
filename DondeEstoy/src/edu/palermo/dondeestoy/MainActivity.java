@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 				switch (position) {
 				case 0:
 
-					i = new Intent(getApplicationContext(), MapaActivity.class);
+					i = new Intent(getApplicationContext(), MapActivity.class);
 					// i.putExtra("id", position); ??
 
 					/*

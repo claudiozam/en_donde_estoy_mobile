@@ -25,7 +25,7 @@ import edu.palermo.dondeestoy.bo.NearLocationPointsResponse;
 import edu.palermo.dondeestoy.rest.ApiService;
 import edu.palermo.dondeestoy.rest.ApiServiceException;
 
-public class MapaActivity extends FragmentActivity implements
+public class MapActivity extends FragmentActivity implements
 		OnMyLocationChangeListener, OnMarkerClickListener {
 
 	private GoogleMap mapa = null;
@@ -50,9 +50,9 @@ public class MapaActivity extends FragmentActivity implements
 
 				if (puntos.length > 0) {
 					for (int i = 0; i < puntos.length; i++) {
-						AgregarPunto((PuntoMapa) puntos[i]);
+						addPoint((PuntoMapa) puntos[i]);
 					}
-					centrarMapa(((PuntoMapa) puntos[0]).getLocation());
+					centerMap(((PuntoMapa) puntos[0]).getLocation());
 				}
 			} else {
 				// centrar en mi ubicacion actual.
@@ -75,13 +75,13 @@ public class MapaActivity extends FragmentActivity implements
 
 	}
 
-	private void centrarMapa(LatLng latlong) {
+	private void centerMap(LatLng latlong) {
 		mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(latlong, 10));
 		mapa.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
 		mapa.setOnMyLocationChangeListener(null);
 	}
 
-	public void AgregarPunto(PuntoMapa p) {
+	public void addPoint(PuntoMapa p) {
 		MarkerOptions m = new MarkerOptions().position(p.getLocation())
 				.title(p.getDevice()).snippet(p.getDescription());
 		Marker objMarker = mapa.addMarker(m);
@@ -94,7 +94,7 @@ public class MapaActivity extends FragmentActivity implements
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			progressDialog = ProgressDialog.show(MapaActivity.this, "",
+			progressDialog = ProgressDialog.show(MapActivity.this, "",
                     "Procesando...");
 		}
 
@@ -137,8 +137,8 @@ public class MapaActivity extends FragmentActivity implements
 							locationPoint.getDevice_description(),
 							locationPoint.getCategory());
 
-					AgregarPunto(p);
-					centrarMapa(p.getLocation());
+					addPoint(p);
+					centerMap(p.getLocation());
 				}
 			}
 			progressDialog.dismiss();
