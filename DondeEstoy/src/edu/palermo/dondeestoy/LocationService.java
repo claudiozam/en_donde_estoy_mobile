@@ -17,10 +17,18 @@ import edu.palermo.dondeestoy.rest.ApiServiceException;
 public class LocationService extends Service {
 	// public static final String BROADCAST_ACTION = "Hello World";
 	private static final int ONE_MINUTE = 1000 * 60 * 1;
+	public static LocationService getInstance() {
+		// TODO Auto-generated constructor stub
+		return locationService;
+	}
+	static LocationService locationService=new LocationService();
 	public static LocationManager locationManager;
 	public MyLocationListener listener;
 	public Location previousBestLocation = null;
 
+	public Location getPreviousBestLocation() {
+		return previousBestLocation;
+	}
 	// Intent intent;
 	int counter = 0;
 

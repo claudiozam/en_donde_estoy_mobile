@@ -1,20 +1,16 @@
 package edu.palermo.dondeestoy;
 
-import edu.palermo.dondeestoy.bo.BaseResponse;
-import edu.palermo.dondeestoy.rest.ApiService;
-import edu.palermo.dondeestoy.rest.ApiServiceException;
-import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.location.Location;
+import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.GridView;
-import android.widget.Toast;
+import edu.palermo.dondeestoy.rest.ApiService;
 
 public class Splash extends Activity {
 
