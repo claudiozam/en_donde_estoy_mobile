@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
  
 public class Settings extends Activity {
 	public static final String NombrePref = "DondeEstoyPref";
@@ -23,7 +24,7 @@ public class Settings extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
 		
-		final EditText editTextServidor = (EditText) findViewById(R.id.editTextServidor);
+		final EditText editTextServidor = (EditText) findViewById(R.id.editTextServidor111);
 		Button botonGuardar = (Button) findViewById(R.id.buttonServidor1);
 		
 		final Utils utils = new Utils(this);
@@ -35,6 +36,7 @@ public class Settings extends Activity {
             @Override
             public void onClick(View v) {
             	utils.saveServerAddress(editTextServidor.getText().toString());
+            	Toast.makeText(getApplicationContext(), "Servidor Guardado.", Toast.LENGTH_SHORT).show();
             }
        });
 	}

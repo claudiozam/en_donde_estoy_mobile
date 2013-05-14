@@ -1,6 +1,7 @@
 package edu.palermo.dondeestoy;
 
-import com.google.android.gms.maps.model.LatLng;
+
+
 
 import android.app.Activity;
 import android.content.Intent;
