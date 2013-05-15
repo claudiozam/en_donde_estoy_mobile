@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import android.util.Log;
 import edu.palermo.dondeestoy.bo.BaseResponse;
+import edu.palermo.dondeestoy.bo.FindLocationsResponse;
 import edu.palermo.dondeestoy.bo.NearLocationPointsResponse;
 import edu.palermo.dondeestoy.bo.Requestclass;
 import edu.palermo.dondeestoy.bo.Responseclass;
@@ -117,6 +118,7 @@ public class ApiService {
 		{
 			ResponseEntity<Responseclass.Response_CategoriasDisponibles> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Responseclass.Response_CategoriasDisponibles.class);			
 			Responseclass.Response_CategoriasDisponibles response_CategoriasDisponibles = responseEntity.getBody();
+			
 			return response_CategoriasDisponibles;
 		}catch(HttpStatusCodeException e)
 		{
@@ -253,14 +255,75 @@ public class ApiService {
 	
 	}
 	
+	public FindLocationsResponse findLocations(String description, int categoriaId, int cantidadMaxDeResultados) throws ApiServiceException {
+
+		try
+		{
+			Requestclass rq=new Requestclass();		
+			Requestclass.Request_FindLocations requestFindLoc = rq.new Request_FindLocations();		 
+			
+			requestFindLoc.setLimit(cantidadMaxDeResultados);
+			requestFindLoc.setDescription(description);
+			requestFindLoc.setCategory_id(categoriaId);
+	             
+			HttpHeaders requestHeaders = new HttpHeaders();
+			//requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
+			requestHeaders.setContentType(new MediaType("application","json"));
+			
+			//HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+			HttpEntity<Requestclass.Request_FindLocations> requestEntity = new HttpEntity<Requestclass.Request_FindLocations>(requestFindLoc, requestHeaders);
+			
+			RestTemplate restTemplate = new RestTemplate();
+			restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
+			
+			String url = "http://" + serverAddress + "/api/locations/find_locations";			
+			
+			ResponseEntity<FindLocationsResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, FindLocationsResponse.class);
+			FindLocationsResponse result = responseEntity.getBody();
+			
+			
+			return result;
+		
+			
+		}catch(HttpStatusCodeException e)
+		{
+			Log.e(Tag,"EXCEPTION HTTP exchange ", e);
+		
+			if(e.getStatusCode()==HttpStatus.NOT_FOUND)
+			{
+				Log.e(Tag,"RESPONSE NOT FOUND");					
+			}
+			else if(e.getStatusCode()==HttpStatus.REQUEST_TIMEOUT)
+			{
+				Log.e(Tag,"REQUEST TIMEOUT");
+				
+			}
+			else if(e.getStatusCode()==HttpStatus.GATEWAY_TIMEOUT)
+			{
+				Log.e(Tag,"GATEWAY TIMEOUT");
+			}
+			else{
+				Log.e(Tag,"ERROR GENERAL");
+			}				
+			throw new ApiServiceException("ERROR GENERAL - FALLO HTTP REQUEST ó  HTTP RESPONSE");
+		
+		}catch(Exception  e)
+		{
+			Log.e(Tag,"EXCEPTION exchange", e);
+			throw new ApiServiceException("ERROR GENERAL - FALLO HTTP REQUEST ó  HTTP RESPONSE");
+		}
+		
+		
+		
+	}
+	
 	public BaseResponse postUpdateLocation(double latitude,double longitude, String device) {
 
 		Requestclass rq=new Requestclass();		
 		Requestclass.Request_UpdateLocation uplocation = rq.new Request_UpdateLocation();		 
 		uplocation.setLatitude(latitude);
 		uplocation.setLongitude(longitude);
-		        
-             
+		
 		HttpHeaders requestHeaders = new HttpHeaders();
 		//requestHeaders.setAccept(Collections.singletonList(new MediaType("application","json")));
 		requestHeaders.setContentType(new MediaType("application","json"));
@@ -280,6 +343,9 @@ public class ApiService {
 		return result;
 	
 	}
+	
+	
+	
 	
 	public BaseResponse postCreateDevice(String name,String description,int id_categoria,int id_type) throws ApiServiceException {
 

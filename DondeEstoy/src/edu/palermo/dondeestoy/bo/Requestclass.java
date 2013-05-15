@@ -29,6 +29,47 @@ public class Requestclass {
 		
 	}
 	
+	public class Request_FindLocations
+	{
+
+		@SerializedName("limit")
+		private int limit;
+		
+		@SerializedName("description")
+		private String description;
+		
+		@SerializedName("category_id")
+		private int category_id;
+		
+		public void setLimit(int limit) {
+			this.limit = limit;
+		}
+		
+		public int getLimit() {
+			return limit;
+		}
+		
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public int getCategory_id() {
+			return category_id;
+		}
+
+		public void setCategory_id(int category_id) {
+			this.category_id = category_id;
+		}
+		
+	
+		
+		
+	}
+	
 	///############################ CREAR NUEVO DEVICE ############################################################3
 		public class Request_CrearNuevoDevice
 	    {
