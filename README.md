@@ -1,4 +1,6 @@
 Proyecto: ¿En dónde estoy?
+==========================
+
 Introducción
 
 Un Sistema de Información Geográfica (SIG o GIS, en su acrónimo inglés Geographic Information System) es una integración organizada de hardware, software y datos geográficos diseñada para capturar, almacenar, manipular, analizar y desplegar en todas sus formas la información geográficamente referenciada con el fin de resolver problemas complejos de planificación y gestión geográfica. También puede definirse como un modelo de una parte de la realidad referido a un sistema de coordenadas terrestre y construido para satisfacer unas necesidades concretas de información.
