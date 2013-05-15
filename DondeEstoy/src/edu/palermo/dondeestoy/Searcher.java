@@ -2,17 +2,23 @@ package edu.palermo.dondeestoy;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import edu.palermo.dondeestoy.services.BusquedaService;
-import edu.palermo.dondeestoy.services.BusquedaServiceImplLocal;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import edu.palermo.dondeestoy.bo.Category;
+import edu.palermo.dondeestoy.bo.Responseclass;
+import edu.palermo.dondeestoy.bo.Responseclass.Response_CategoriasDisponibles;
+import edu.palermo.dondeestoy.rest.ApiService;
+import edu.palermo.dondeestoy.rest.ApiServiceException;
 
 public class Searcher extends Activity {
 
@@ -20,33 +26,32 @@ public class Searcher extends Activity {
 
 	private Spinner spinnerCategoria;
 	private Spinner spinnerLugar;
+	
+	private ArrayAdapter<edu.palermo.dondeestoy.Category> dataAdapterCategoria = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_layout);
+		
 		botonBuscar = (Button) findViewById(R.id.buttonBuscar);
-
 		spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategoria);
 		spinnerLugar = (Spinner) findViewById(R.id.spinnerBarrio);
+		
+		Log.i("Searcher", "########## Antes de buscar las categorias ###########");
+		BuscarCategoriasTask buscarCategoriasTask = new BuscarCategoriasTask();
+		buscarCategoriasTask.execute();
 
-		BusquedaService busquedaService = new BusquedaServiceImplLocal();
+		//BusquedaService busquedaService = new BusquedaServiceImplLocal();
 
-		ArrayAdapter<Category> dataAdapterCategoria = new ArrayAdapter<Category>(
-				this, android.R.layout.simple_spinner_item,
-				busquedaService.getCategorias());
+		//ArrayAdapter<Category> dataAdapterCategoria = null;
+		
+		//new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, busquedaService.getCategorias());
 
-		dataAdapterCategoria
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinnerCategoria.setAdapter(dataAdapterCategoria);
+		//dataAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		//spinnerCategoria.setAdapter(dataAdapterCategoria);
 
-		ArrayAdapter<Place> dataAdapterLugar = new ArrayAdapter<Place>(this,
-				android.R.layout.simple_spinner_item,
-				busquedaService.getLugares());
 
-		dataAdapterLugar
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinnerLugar.setAdapter(dataAdapterLugar);
 
 		botonBuscar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -79,4 +84,64 @@ public class Searcher extends Activity {
 		}
 		return PuntosMapa;
 	}
+	
+	public void cargarSpinner(Category[] categorias) {
+		
+		Log.i("Searcher", "#####  CARGANDO LAS CATEGORIAS  ############");
+		
+		edu.palermo.dondeestoy.Category miCategoria = new edu.palermo.dondeestoy.Category();
+		
+		ArrayList<edu.palermo.dondeestoy.Category> listaCategorias = new ArrayList<edu.palermo.dondeestoy.Category>();
+						
+		for (edu.palermo.dondeestoy.bo.Category category : categorias) {
+			miCategoria.setNombre(category.getName() + " " + category.getNombredevice());
+			
+			listaCategorias.add(miCategoria);
+			
+		}
+		
+		dataAdapterCategoria = new ArrayAdapter<edu.palermo.dondeestoy.Category>(this, android.R.layout.simple_spinner_item, listaCategorias);
+		
+		dataAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinnerCategoria.setAdapter(dataAdapterCategoria);
+		
+	}
+	
+	//Async task para traer las categoria disponibles
+	class BuscarCategoriasTask extends AsyncTask<Void, Void, Responseclass.Response_CategoriasDisponibles>{
+
+		@Override
+		protected Response_CategoriasDisponibles doInBackground(Void... arg0) {
+			Log.i("BuscarCategoriasTask", "##### doInBackground(Void... arg0)  ############");
+
+			try {
+				ApiService apiService = new ApiService();
+				Response_CategoriasDisponibles categoriasDisponibles = apiService.getCategoriasDisponibles();
+								
+				return categoriasDisponibles;
+				
+			} catch (ApiServiceException e) {
+				// TODO Auto-generated catch block
+				Log.e("BuscarCategoriasTask.doInBackground", e.getMessage());
+			}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Response_CategoriasDisponibles result) {
+			
+			Log.i("DENTRO DE onPostExecute", result.toString());
+
+			if (result != null){
+				
+				edu.palermo.dondeestoy.bo.Category[] categorias = result.getCategorias();			
+				cargarSpinner(categorias);
+				
+			}
+		}
+		
+	}
+	
+	
 }
