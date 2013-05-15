@@ -1,6 +1,8 @@
 package edu.palermo.dondeestoy;
 
+import android.R.color;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,7 @@ public class ImageAdapter extends BaseAdapter {
 			 LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	         v = li.inflate(R.layout.grid_item, null);
 	         TextView tv = (TextView)v.findViewById(R.id.grid_item_text);
+	         tv.setTextColor(Color.BLACK);
 	         ImageView iv = (ImageView)v.findViewById(R.id.grid_item_image);
 	         switch (position) {
 	         case 0:

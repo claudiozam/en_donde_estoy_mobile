@@ -17,18 +17,29 @@ import edu.palermo.dondeestoy.rest.ApiServiceException;
 public class LocationService extends Service {
 	// public static final String BROADCAST_ACTION = "Hello World";
 	private static final int ONE_MINUTE = 1000 * 60 * 1;
+
 	public static LocationService getInstance() {
 		// TODO Auto-generated constructor stub
 		return locationService;
 	}
-	static LocationService locationService=new LocationService();
-	public static LocationManager locationManager;
+
+	public static LocationService locationService;
+	public LocationManager locationManager;
 	public MyLocationListener listener;
 	public Location previousBestLocation = null;
 
 	public Location getPreviousBestLocation() {
+		if (previousBestLocation == null) {
+			if (locationManager != null) {
+				previousBestLocation = locationManager
+						.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			}
+		} else {
+			return previousBestLocation;
+		}
 		return previousBestLocation;
 	}
+
 	// Intent intent;
 	int counter = 0;
 
@@ -36,6 +47,7 @@ public class LocationService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		// intent = new Intent(BROADCAST_ACTION);
+		locationService = this;
 	}
 
 	@Override
@@ -151,7 +163,8 @@ public class LocationService extends Service {
 				Log.d("Longitude", Double.toString(loc.getLongitude()));
 				Log.d("Provider", loc.getProvider());
 				Log.d("HashCode", "Start  Id:" + this.hashCode());
-				Log.d("**************************************", "***************");
+				Log.d("**************************************",
+						"***************");
 				try {
 					new Thread(new Runnable() {
 						public void run() {
