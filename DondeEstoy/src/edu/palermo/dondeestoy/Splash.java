@@ -39,7 +39,6 @@ public class Splash extends Activity {
 
 		Handler x = new Handler();
 		x.postDelayed(new SplashHandler(), 2000);
-
 	}
 
 	@Override
