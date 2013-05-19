@@ -20,12 +20,7 @@
     </string-array>
     
     <string-array  name="categorias">
-       <item >Restaurantes</item>
-       <item >Bares</item>
-       <item >Clubes</item>
-       <item >Hoteles</item>
-       <item >Discotecas</item>
-       <item >Cines</item>
+       <item >vacio</item>
     </string-array>
 
 </resources>

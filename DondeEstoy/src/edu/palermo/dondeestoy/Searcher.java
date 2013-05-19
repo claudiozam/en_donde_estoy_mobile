@@ -1,8 +1,14 @@
 package edu.palermo.dondeestoy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,11 +33,7 @@ public class Searcher extends Activity {
 
 	private Button botonBuscar;
 	private static String TAG = "Searcher";
-	
 	private Spinner spinnerCategoria;
-	private Spinner spinnerLugar;
-	
-	private ArrayAdapter<edu.palermo.dondeestoy.Category> dataAdapterCategoria = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +42,10 @@ public class Searcher extends Activity {
 		
 		botonBuscar = (Button) findViewById(R.id.buttonBuscar);
 		spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategoria);
-		spinnerLugar = (Spinner) findViewById(R.id.spinnerBarrio);
-		
-		Log.i("Searcher", "########## Antes de buscar las categorias ###########");
+				
+		Log.i(TAG, "Antes de buscar las categorias");
 		BuscarCategoriasTask buscarCategoriasTask = new BuscarCategoriasTask();
 		buscarCategoriasTask.execute();
-
-		//BusquedaService busquedaService = new BusquedaServiceImplLocal();
-
-		//ArrayAdapter<Category> dataAdapterCategoria = null;
-		
-		//new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, busquedaService.getCategorias());
-
-		//dataAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		//spinnerCategoria.setAdapter(dataAdapterCategoria);
-
-
 
 		botonBuscar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -65,7 +55,7 @@ public class Searcher extends Activity {
 
 		});
 		
-		ejemploBuscar();
+		//ejemploBuscar();
 	}
 	
 	//Es solo un ejemplo cambiar a AsyncTask......
@@ -79,7 +69,7 @@ public class Searcher extends Activity {
 					//FindLocationsResponse findLocationsResponse = apiService.findLocations("bar lindo", 2, 30);
 					
 					//Enviar la categoria id = 0 es igual a buscar en todas las categorias
-					FindLocationsResponse findLocationsResponse = apiService.findLocations("", 0, 30);
+					FindLocationsResponse findLocationsResponse = apiService.findLocations("", 2, 30);
 					
 					if (findLocationsResponse.getCode().equals("000")) {
 						
@@ -106,12 +96,19 @@ public class Searcher extends Activity {
 	}
 
 	private void eventoDelBotonBuscar(View arg0) {
-		// TODO Auto-generated method stub
-		Intent intent = new Intent(this, ListResult.class);
-		// TODO setear los datos de los filtros.
-		intent.putExtra("resultadoBusqueda", setPuntosMapa());
-		this.startActivity(intent);
+		//falta obtener los filtros de la pantalla
+		Filters filtrosBusqueda = new Filters();
+		filtrosBusqueda.setIdCategory(2);
+		filtrosBusqueda.setResultsCount(30);
+		filtrosBusqueda.setText("bar lindo");
+		
+		//Se llama a asink Task para la busqueda de lugares
+		BuscarLocationsTask buscarLocationsTask = new BuscarLocationsTask();
+		buscarLocationsTask.execute(filtrosBusqueda);
+
 	}
+	
+	
 	//se agrego este metodo para cargar listview
 	private ArrayList<MapPoint> setPuntosMapa() {
 		ArrayList<MapPoint> PuntosMapa = new ArrayList<MapPoint>();
@@ -128,21 +125,21 @@ public class Searcher extends Activity {
 		return PuntosMapa;
 	}
 	
-	public void cargarSpinner(Category[] categorias) {
+	private void cargarSpinner(Category[] categorias) {
 		
-		Log.i("Searcher", "#####  CARGANDO LAS CATEGORIAS  ############");
+		Log.i(TAG, "#####  CARGANDO LAS CATEGORIAS  ############");
 		
-		edu.palermo.dondeestoy.Category miCategoria = new edu.palermo.dondeestoy.Category();
-		
+		edu.palermo.dondeestoy.Category miCategoria = null;		
 		ArrayList<edu.palermo.dondeestoy.Category> listaCategorias = new ArrayList<edu.palermo.dondeestoy.Category>();
 						
 		for (edu.palermo.dondeestoy.bo.Category category : categorias) {
-			miCategoria.setNombre(category.getName() + " " + category.getNombredevice());
+			miCategoria = new edu.palermo.dondeestoy.Category();
+			miCategoria.setNombre(category.getCategoriaId() + " " +  category.getName());
 			
 			listaCategorias.add(miCategoria);
 			
 		}
-		
+		ArrayAdapter<edu.palermo.dondeestoy.Category> dataAdapterCategoria = null;
 		dataAdapterCategoria = new ArrayAdapter<edu.palermo.dondeestoy.Category>(this, android.R.layout.simple_spinner_item, listaCategorias);
 		
 		dataAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -150,8 +147,26 @@ public class Searcher extends Activity {
 		
 	}
 	
+	private void cargarResultadosBusqueda(Location[] list) {
+		Intent intent = new Intent(this, ListResult.class);
+		
+		ArrayList<MapPoint> listaResultados = new ArrayList<MapPoint>();
+		MapPoint mp = null;
+		
+		for (Location location: list){
+			mp = new MapPoint(location.getDevice(), new LatLng(location.getLatitude(), location.getLongitude()), location.getDevice_description(), location.getCategory());
+			listaResultados.add(mp);
+		}
+		
+		intent.putExtra("resultadoBusqueda", listaResultados);
+		
+		this.startActivity(intent);
+	}
+	
 	//Async task para traer las categoria disponibles
 	class BuscarCategoriasTask extends AsyncTask<Void, Void, Responseclass.Response_CategoriasDisponibles>{
+		
+
 
 		@Override
 		protected Response_CategoriasDisponibles doInBackground(Void... arg0) {
@@ -160,11 +175,16 @@ public class Searcher extends Activity {
 			try {
 				ApiService apiService = new ApiService();
 				Response_CategoriasDisponibles categoriasDisponibles = apiService.getCategoriasDisponibles();
-								
-				return categoriasDisponibles;
 				
+				if(categoriasDisponibles.getCode().equals("000")){
+					return categoriasDisponibles;
+				}else if(categoriasDisponibles.getCode().equals("600")){
+					Log.e("BuscarCategoriasTask.doInBackground", "No se encontraron datos");
+															
+					return null;
+				}
+										
 			} catch (ApiServiceException e) {
-				// TODO Auto-generated catch block
 				Log.e("BuscarCategoriasTask.doInBackground", e.getMessage());
 			}
 			
@@ -173,18 +193,59 @@ public class Searcher extends Activity {
 		
 		@Override
 		protected void onPostExecute(Response_CategoriasDisponibles result) {
-			
-			Log.i("DENTRO DE onPostExecute", result.toString());
 
 			if (result != null){
 				
 				edu.palermo.dondeestoy.bo.Category[] categorias = result.getCategorias();			
-				cargarSpinner(categorias);
-				
+				cargarSpinner(categorias);		
 			}
 		}
 		
 	}
 	
-	
+	//Async Task para la busqueda de lugares segun filtros
+	class BuscarLocationsTask extends AsyncTask <Filters, Void, FindLocationsResponse>{
+		
+		ProgressDialog progressDialog;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = ProgressDialog.show(Searcher.this, "",
+                    "Procesando...");
+		}
+		
+		@Override
+		protected FindLocationsResponse doInBackground(Filters... params) {
+			
+			try {
+				
+				ApiService apiService = new ApiService();
+				FindLocationsResponse findLocationsResponse = apiService.findLocations(params[0].getText() , params[0].getIdCategory(), params[0].getResultsCount());
+				
+				if(findLocationsResponse.getCode().equals("000")){
+					return findLocationsResponse;
+				}else if(findLocationsResponse.getCode().equals("600")){
+					Log.e("BuscarLocationsTask.doInBackground", "No se encontraron datos");
+					
+					return null;
+				}
+				
+			} catch (ApiServiceException e) {
+				Log.e("BuscarLocationsTask.doInBackground", e.getMessage());
+			}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(FindLocationsResponse result) {
+			//Cargo el ArrayList<PuntoMapa> para mostrar en el listResult
+			
+			if(result != null){
+				cargarResultadosBusqueda(result.getList());				
+			}
+			progressDialog.dismiss();
+		}		
+	}
+		
 }
