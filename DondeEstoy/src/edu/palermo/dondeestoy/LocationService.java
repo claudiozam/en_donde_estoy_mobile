@@ -24,6 +24,7 @@ public class LocationService extends Service {
 	}
 
 	public static LocationService locationService;
+	public static Boolean bregistred = false;
 	public LocationManager locationManager;
 	public MyLocationListener listener;
 	public Location previousBestLocation = null;
@@ -168,15 +169,15 @@ public class LocationService extends Service {
 				try {
 					new Thread(new Runnable() {
 						public void run() {
+
 							ApiService apiService = new ApiService();
 							ApiService.setServerAddress(serverAddress);
+							BaseResponse baseResponse;
 							try {
-								BaseResponse baseResponse = apiService
-										.postCreateDevice(
-												imeiActual,
-												"Usuario Android",
-												Utils.PERSONAL_LOCATION_CATEGORY_ID,
-												Utils.MOVIL_LOCATION_TYPE_ID);
+								baseResponse = apiService.postCreateDevice(
+										imeiActual, "Usuario Android",
+										Utils.PERSONAL_LOCATION_CATEGORY_ID,
+										Utils.MOVIL_LOCATION_TYPE_ID);
 								if (baseResponse.getCode().equals("000")) {
 									Log.d(TAG, "Device registrado");
 								} else {
@@ -186,9 +187,10 @@ public class LocationService extends Service {
 								baseResponse = apiService.postUpdateLocation(
 										loc.getLatitude(), loc.getLongitude(),
 										imeiActual);
-								Log.d(TAG, "Registrado");
+								Log.d(TAG, "Registrada posicion");
 							} catch (ApiServiceException e) {
 								Log.e(TAG, "Error al registrar el DEVICE", e);
+								bregistred = false;
 							}
 						}
 					}).start();
