@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 					i = new Intent(getApplicationContext(), Settings.class);
 					startActivity(i);
 					break;
-					
+
 				case 3:
 					finish();
 					break;
@@ -100,8 +100,10 @@ public class MainActivity extends Activity {
 	}
 
 	private void Inciarservicio() {
-		getApplicationContext().startService(
-				new Intent(this, LocationService.class));
+		if (Utils.serviceStart) {
+			getApplicationContext().startService(
+					new Intent(this, LocationService.class));
+		}
 	}
 
 	// private void ejemploDeLlamadaAlAPI() {

@@ -9,6 +9,7 @@ public class Utils {
 	private static final String NombrePref = "DondeEstoyPref";
 	public static int MOVIL_LOCATION_TYPE_ID = 5;
 	public static int PERSONAL_LOCATION_CATEGORY_ID = 5;
+	public static Boolean serviceStart=true;
 	
 	public Utils(Context context) {
 		this.context = context;
