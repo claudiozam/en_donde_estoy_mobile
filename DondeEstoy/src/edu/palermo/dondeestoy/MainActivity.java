@@ -54,6 +54,10 @@ public class MainActivity extends Activity {
 					i = new Intent(getApplicationContext(), Settings.class);
 					startActivity(i);
 					break;
+					
+				case 3:
+					finish();
+					break;
 
 				}
 

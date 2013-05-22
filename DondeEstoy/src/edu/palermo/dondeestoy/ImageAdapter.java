@@ -18,7 +18,8 @@ public class ImageAdapter extends BaseAdapter {
 	public static int[] images = {
 			R.drawable.menu_item_buscador,	
 			R.drawable.menu_item_donde_estoy,
-			R.drawable.menu_item_config
+			R.drawable.menu_item_config,
+			R.drawable.menu_item_salir
 	};
 			
 	private Context context;
@@ -60,11 +61,15 @@ public class ImageAdapter extends BaseAdapter {
 	        	 iv.setImageResource(images[position]);
 	        	 break;
 	         case 1:
-	        	 tv.setText("Busqueda");
+	        	 tv.setText("Búsqueda");
 	        	 iv.setImageResource(images[position]);
 	        	 break;
 	         case 2:
-	        	 tv.setText("Configuracion");
+	        	 tv.setText("Configuración");
+	        	 iv.setImageResource(images[position]);
+	        	 break;
+	         case 3:
+	        	 tv.setText("Salir");
 	        	 iv.setImageResource(images[position]);
 	        	 break;
 	         }
