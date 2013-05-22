@@ -47,18 +47,24 @@ public class Settings extends Activity {
 
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
+            	LocationService locationService=LocationService.getInstance();
                  if (buttonView.isChecked()) {
                 	 Toast.makeText(getApplicationContext(), "Servicio Activado.", Toast.LENGTH_SHORT).show();
+                	 inciarServicio();
+                	 
                   }
                  else
                 {
                 	 Toast.makeText(getApplicationContext(), "Servicio Desactivado.", Toast.LENGTH_SHORT).show();
-                 }
+                	 locationService.stopSelf(); 		
+                }
 
             }
           });
-		
-		
+			
 	}
-    
+	private void inciarServicio() {
+		getApplicationContext().startService(
+				new Intent(this, LocationService.class));
+	}
 }

@@ -73,7 +73,6 @@ public class MapActivity extends FragmentActivity implements
 		Log.d("MapaActivity.onMyLocationChange()", "Llamada a async task");
 		NearpositionsTask nearpositionsTask = new NearpositionsTask();
 		nearpositionsTask.execute(currentPosition);
-
 	}
 
 	private void centerMap(LatLng latlong) {
@@ -141,6 +140,10 @@ public class MapActivity extends FragmentActivity implements
 					addPoint(mapPoint);
 					centerMap(mapPoint.getLocation());
 				}
+			}
+			else
+			{
+				mapa.setOnMyLocationChangeListener(null);
 			}
 			progressDialog.dismiss();
 		}
