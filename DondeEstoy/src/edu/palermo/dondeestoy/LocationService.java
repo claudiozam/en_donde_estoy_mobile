@@ -174,15 +174,20 @@ public class LocationService extends Service {
 							ApiService.setServerAddress(serverAddress);
 							BaseResponse baseResponse;
 							try {
-								baseResponse = apiService.postCreateDevice(
-										imeiActual, "Usuario Android",
-										Utils.PERSONAL_LOCATION_CATEGORY_ID,
-										Utils.MOVIL_LOCATION_TYPE_ID);
-								if (baseResponse.getCode().equals("000")) {
-									Log.d(TAG, "Device registrado");
-								} else {
-									Log.d(TAG,
-											"El Device existe en la base de datos");
+								if (!LocationService.bregistred) {
+									baseResponse = apiService
+											.postCreateDevice(
+													imeiActual,
+													"Usuario Android",
+													Utils.PERSONAL_LOCATION_CATEGORY_ID,
+													Utils.MOVIL_LOCATION_TYPE_ID);
+									if (baseResponse.getCode().equals("000")) {
+										Log.d(TAG, "Device registrado");
+									} else {
+										Log.d(TAG,
+												"El Device existe en la base de datos");
+									}
+									bregistred=true;
 								}
 								baseResponse = apiService.postUpdateLocation(
 										loc.getLatitude(), loc.getLongitude(),
