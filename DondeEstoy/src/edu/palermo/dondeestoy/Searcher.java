@@ -1,14 +1,9 @@
 package edu.palermo.dondeestoy;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -34,6 +31,12 @@ public class Searcher extends Activity {
 	private Button botonBuscar;
 	private static String TAG = "Searcher";
 	private Spinner spinnerCategoria;
+	private EditText textoLibre;
+	private static int TODAS_LAS_CATEGORIAS = 0; 
+	
+	private static int CANTIDAD_REGISTROS = 30;
+	
+	private ArrayList<Integer> listaIds = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class Searcher extends Activity {
 		
 		botonBuscar = (Button) findViewById(R.id.buttonBuscar);
 		spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategoria);
+		textoLibre = (EditText) findViewById(R.id.autoCompleteTextViewNombre);
 				
 		Log.i(TAG, "Antes de buscar las categorias");
 		BuscarCategoriasTask buscarCategoriasTask = new BuscarCategoriasTask();
@@ -98,14 +102,29 @@ public class Searcher extends Activity {
 	private void eventoDelBotonBuscar(View arg0) {
 		//falta obtener los filtros de la pantalla
 		Filters filtrosBusqueda = new Filters();
-		filtrosBusqueda.setIdCategory(2);
-		filtrosBusqueda.setResultsCount(30);
-		filtrosBusqueda.setText("bar lindo");
-		
+		filtrosBusqueda.setIdCategory(getCategoriaSelectedId());
+		filtrosBusqueda.setResultsCount(CANTIDAD_REGISTROS);
+		filtrosBusqueda.setText(getTextFiltro());		
+				
 		//Se llama a asink Task para la busqueda de lugares
 		BuscarLocationsTask buscarLocationsTask = new BuscarLocationsTask();
 		buscarLocationsTask.execute(filtrosBusqueda);
 
+	}
+	
+	private int getCategoriaSelectedId(){
+		int idCategoria = listaIds.get(spinnerCategoria.getSelectedItemPosition());
+		Log.i(TAG, "ID CATEGORIA: " + idCategoria);
+		Log.i(TAG, "ITEM: " + spinnerCategoria.getSelectedItem());
+		Log.i(TAG, "POSISION: " + spinnerCategoria.getSelectedItemPosition());
+		
+		return  idCategoria;	
+	}
+	
+	private String getTextFiltro(){
+		String textoIngresado = textoLibre.getText().toString();
+		Log.i(TAG, "TEXTO: " + textoIngresado);
+		return textoIngresado;
 	}
 	
 	
@@ -131,14 +150,24 @@ public class Searcher extends Activity {
 		
 		edu.palermo.dondeestoy.Category miCategoria = null;		
 		ArrayList<edu.palermo.dondeestoy.Category> listaCategorias = new ArrayList<edu.palermo.dondeestoy.Category>();
+		
+		listaIds = new ArrayList<Integer>();
+		miCategoria = new edu.palermo.dondeestoy.Category();
+		miCategoria.setNombre("Todas");
+		
+		listaCategorias.add(miCategoria);
+		listaIds.add(TODAS_LAS_CATEGORIAS);
 						
 		for (edu.palermo.dondeestoy.bo.Category category : categorias) {
 			miCategoria = new edu.palermo.dondeestoy.Category();
-			miCategoria.setNombre(category.getCategoriaId() + " " +  category.getName());
+			miCategoria.setNombre(category.getName());
+			
+			Log.i(TAG, "CATEGORIA: " + category.getName() + " ID: " + category.getCategoriaId());
 			
 			listaCategorias.add(miCategoria);
-			
+			listaIds.add(category.getCategoriaId());
 		}
+		
 		ArrayAdapter<edu.palermo.dondeestoy.Category> dataAdapterCategoria = null;
 		dataAdapterCategoria = new ArrayAdapter<edu.palermo.dondeestoy.Category>(this, android.R.layout.simple_spinner_item, listaCategorias);
 		
@@ -152,11 +181,13 @@ public class Searcher extends Activity {
 		
 		ArrayList<MapPoint> listaResultados = new ArrayList<MapPoint>();
 		MapPoint mp = null;
+				
 		
 		for (Location location: list){
 			mp = new MapPoint(location.getDevice(), new LatLng(location.getLatitude(), location.getLongitude()), location.getDevice_description(), location.getCategory());
 			listaResultados.add(mp);
-		}
+			
+		}	
 		
 		intent.putExtra("resultadoBusqueda", listaResultados);
 		

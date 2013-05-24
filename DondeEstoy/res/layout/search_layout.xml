@@ -9,88 +9,59 @@
         android:id="@+id/rlayoutBusqueda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
+        
+        
+        
 
-        <TextView
-            android:id="@+id/textViewBarrio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="15dp"
-            android:textColor="@android:color/black"
-            android:text="Barrio" />
-        <Spinner
-            android:id="@+id/spinnerBarrio"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewBarrio" 
-            android:entries="@array/barrios"
-
-            />
-        <TextView
-            android:id="@+id/textViewCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="80dp"
-            android:textColor="@android:color/black"
-            android:text="Categoria" />
         <Spinner
             android:id="@+id/spinnerCategoria"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewCategoria"             
-            android:entries="@array/categorias"
+            android:layout_below="@+id/textViewCategoria"
+            android:entries="@array/categorias" />
 
-            />
-        
-         <TextView
+        <TextView
             android:id="@+id/textViewNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinnerCategoria"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="20dp"
-            android:textColor="@android:color/black"
-            android:text="Nombre" />
-         
-        <!-- AutoCompleteTextView
-	        android:id="@+id/autoCompleteTextViewNonbre"
+            android:text="Nombre"
+            android:textColor="@android:color/black" />
 
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textViewNombre"
-	        android:layout_width="fill_parent"
-	        android:layout_marginTop="10dp"
-	        android:layout_marginLeft="1dp"
-	        android:ems="10"
-	        android:text="Ingrese el nombre" >
-         	<requestFocus />
-    	</AutoCompleteTextView> -->
-    	
-    	<EditText
-    	    android:id="@+id/autoCompleteTextViewNonbre"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:layout_alignParentLeft="true"
-    	    android:layout_below="@+id/textViewNombre"
-    	    android:layout_marginLeft="2dp"
-    	    android:layout_marginRight="1dp"
-    	    android:layout_marginTop="3dp"
-    	    
-    	    android:ems="10"
-    	    android:hint="Ingrese el nombre del lugar" />
+        <EditText
+            android:id="@+id/autoCompleteTextViewNombre"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewNombre"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="3dp"
+            android:ems="10"
+            android:hint="Ingrese el nombre del lugar" />
 
         <Button
             android:id="@+id/buttonBuscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/autoCompleteTextViewNonbre"
-            android:layout_below="@+id/autoCompleteTextViewNonbre"
-            android:layout_marginTop="14dp"
+            android:layout_alignRight="@+id/autoCompleteTextViewNombre"
+            android:layout_below="@+id/autoCompleteTextViewNombre"
+            android:layout_marginTop="25dp"
+            android:width="120dp"
             android:text="Buscar" />
+
+        <TextView
+            android:id="@+id/textViewCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewNombre"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:text="Categoria"
+            android:textColor="@android:color/black" />
         
     </RelativeLayout>
-
-    
 
 </LinearLayout>
