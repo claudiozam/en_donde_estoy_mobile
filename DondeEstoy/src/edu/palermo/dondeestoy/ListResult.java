@@ -17,10 +17,10 @@ import android.widget.SimpleAdapter;
 
 public class ListResult extends Activity {
 
-	public static int[] img = new int[] { R.drawable.india,
+	/*public static int[] img = new int[] { R.drawable.india,
 			R.drawable.pakistan, R.drawable.srilanka, R.drawable.china,
 			R.drawable.bangladesh, R.drawable.nepal, R.drawable.afghanistan,
-			R.drawable.nkorea, R.drawable.skorea, R.drawable.japan };
+			R.drawable.nkorea, R.drawable.skorea, R.drawable.japan };*/
 	private ArrayList<MapPoint> mapPoints;
 
 	@SuppressWarnings("unchecked")
@@ -40,7 +40,14 @@ public class ListResult extends Activity {
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("device", "Dispositivo : " + mapPoint.getDevice());
 			hm.put("description", "Descripcion : " + mapPoint.getDescription());
-			hm.put("img", Integer.toString(img[1]));
+			try{
+				hm.put("img", Integer.toString(Utils.categoryImages.get(mapPoint.getCategory().toUpperCase())));	
+			}	
+			catch(Exception ex)
+			{
+				hm.put("img", Integer.toString(Utils.categoryImages.get("DEFAULT")));
+			}
+			
 			aList.add(hm);
 		}
 

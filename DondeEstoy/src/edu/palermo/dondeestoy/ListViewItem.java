@@ -1,8 +1,5 @@
 package edu.palermo.dondeestoy;
 
-
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,7 +29,17 @@ public class ListViewItem extends Activity implements OnClickListener {
 		txtViewdescription.setTextColor(Color.BLACK);
 		txtViewdescription.setText(mapPoint.getDescription());
 		txtViewdescription.setTextSize(30);
-
+		ImageView image = (ImageView) findViewById(R.id.imgFlag);
+		try{
+			
+			image.setImageResource(Utils.categoryImages.get(mapPoint.getCategory().toUpperCase()));	
+		}
+		
+		catch(Exception ex){
+			image.setImageResource(Utils.categoryImages.get("DEFAULT"));
+		}
+		
+		
 		Button btn = (Button) findViewById(R.id.buttonVerEnElMapa);
 		btn.setOnClickListener(this);
 

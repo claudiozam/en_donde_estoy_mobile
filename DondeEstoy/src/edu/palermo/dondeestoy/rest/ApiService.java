@@ -27,7 +27,7 @@ import edu.palermo.dondeestoy.bo.Responseclass;
 public class ApiService {
 
 	private final static String Tag="ApiService";
-	private final static int TIMEOUT=1;
+	private final static int TIMEOUT=10;
 	private static String serverAddress = "";
 
 	public static String getServerAddress() {
