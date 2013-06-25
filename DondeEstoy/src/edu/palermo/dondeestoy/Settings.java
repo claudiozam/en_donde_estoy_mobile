@@ -40,6 +40,7 @@ public class Settings extends Activity {
 				utils.saveServerAddress(editTextServidor.getText().toString());
 				Toast.makeText(getApplicationContext(), "Servidor Guardado.",
 						Toast.LENGTH_SHORT).show();
+				
 			}
 		});
 

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -208,7 +209,14 @@ public class Searcher extends Activity {
 	// Async task para traer las categoria disponibles
 	class BuscarCategoriasTask extends
 			AsyncTask<Void, Void, Responseclass.Response_CategoriasDisponibles> {
-
+		ProgressDialog progressDialog;
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = ProgressDialog.show(Searcher.this, "",
+					"Cargando Categorias...");
+		}
 		@Override
 		protected Response_CategoriasDisponibles doInBackground(Void... arg0) {
 			Log.i("BuscarCategoriasTask",
@@ -244,6 +252,7 @@ public class Searcher extends Activity {
 						.getCategorias();
 				cargarSpinner(categorias);
 			}
+			progressDialog.dismiss();
 		}
 
 	}
@@ -294,6 +303,11 @@ public class Searcher extends Activity {
 
 			if (result != null) {
 				cargarResultadosBusqueda(result.getList());
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), "No se encontraron resultados",
+						Toast.LENGTH_SHORT).show();
 			}
 			progressDialog.dismiss();
 		}
