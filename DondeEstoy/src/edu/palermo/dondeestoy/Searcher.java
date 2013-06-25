@@ -284,7 +284,7 @@ public class Searcher extends Activity {
 				if (findLocationsResponse.getCode().equals("000")) {
 					return findLocationsResponse;
 				} else if (findLocationsResponse.getCode().equals("600")) {
-					Log.e("BuscarLocationsTask.doInBackground",
+					Log.i("BuscarLocationsTask.doInBackground",
 							"No se encontraron datos");
 
 					return null;
