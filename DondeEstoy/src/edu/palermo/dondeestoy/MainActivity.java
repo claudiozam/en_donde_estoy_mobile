@@ -67,38 +67,7 @@ public class MainActivity extends Activity {
 
 	}
 
-	private void RegistrarDevice() {
-		new Thread(new Runnable() {
-			public void run() {
-				ApiService apiService = new ApiService();
-				try {
-					BaseResponse baseResponse = apiService.postCreateDevice(
-							imeiActual, "Usuario Android",
-							Utils.PERSONAL_LOCATION_CATEGORY_ID,
-							Utils.MOVIL_LOCATION_TYPE_ID);
-
-					if (baseResponse.getCode().equals("000")) {
-						Log.i(TAG, "Device registrado");
-					} else {
-						Log.i(TAG, "El Device existe en la base de datos");
-					}
-
-					baseResponse = apiService.postUpdateLocation(-59.9999,
-							-34.3332, imeiActual);
-					Log.i(TAG, "Registrado");
-				} catch (ApiServiceException e) {
-					// Toast.makeText(getApplicationContext(),
-					// "Error al registrar el celular en el servidor",
-					// Toast.LENGTH_SHORT).show();
-					// TODO Auto-generated catch block
-					Log.e(TAG, "Error al registrar el DEVICE", e);
-				}
-
-			}
-		}).start();
-
-	}
-
+	
 	private void Inciarservicio() {
 		if (Utils.serviceStart) {
 			getApplicationContext().startService(
@@ -106,36 +75,6 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// private void ejemploDeLlamadaAlAPI() {
-
-	// new Thread() {
-	// public void run() {
-	// ApiService apiService = new ApiService();
-	//
-	//
-	// NearLocationPointsResponse locationPointsResponse = null;
-	// try {
-	// locationPointsResponse = apiService
-	// .getNearLocationPoints(25.158, 30.588);
-	// } catch (ApiServiceException e) {
-	// // TODO Auto-generated catch block
-	// Log.e("ERROR LLAMADO", e.getMessage());
-	// e.printStackTrace();
-	// }
-	// if (locationPointsResponse.getCode().equals("000")) {
-	// for (LocationPoint locationPoint : locationPointsResponse
-	// .getList()) {
-	// Log.i("TEST", locationPoint.getLatitude() + " - "
-	// + locationPoint.getLongitude());
-	// }
-	// } else if (locationPointsResponse.getCode().equals("600")) {
-	// Log.i("Test",
-	// "No encontre nada en un radio de 5 kilomestros");
-	// }
-	// }
-	// }.start();
-	//
-	// }
 
 	@Override
 	public void onBackPressed() {

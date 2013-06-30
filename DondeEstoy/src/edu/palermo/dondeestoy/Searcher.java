@@ -54,65 +54,18 @@ public class Searcher extends Activity {
 		botonBuscar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				eventoDelBotonBuscar(arg0);
+				search(arg0);
 			}
-
 		});
-
-		// ejemploBuscar();
 	}
 
-	// Es solo un ejemplo cambiar a AsyncTask......
-	private void ejemploBuscar() {
-		new Thread(new Runnable() {
-			public void run() {
-				ApiService apiService = new ApiService();
-				try {
-
-					// Ejemplo de busqueda bar lindo, id categoria = 2 con un
-					// limite de 30 registros
-					// FindLocationsResponse findLocationsResponse =
-					// apiService.findLocations("bar lindo", 2, 30);
-
-					// Enviar la categoria id = 0 es igual a buscar en todas las
-					// categorias
-					FindLocationsResponse findLocationsResponse = apiService
-							.findLocations("", 2, 30);
-
-					if (findLocationsResponse.getCode().equals("000")) {
-
-						Log.i(TAG, "Mostrando resultados de la busqeuda");
-
-						Location[] locations = findLocationsResponse.getList();
-						for (Location l : locations) {
-							Log.i(TAG, l.toString());
-						}
-					} else {
-						Log.i(TAG, "Error en la busqueda: "
-								+ findLocationsResponse.getMessage());
-					}
-				} catch (ApiServiceException e) {
-					// Toast.makeText(getApplicationContext(),
-					// "Error al registrar el celular en el servidor",
-					// Toast.LENGTH_SHORT).show();
-					// TODO Auto-generated catch block
-					Log.e(TAG, "Error al buscar", e);
-				}
-
-			}
-		}).start();
-
-	}
-
-	private void eventoDelBotonBuscar(View arg0) {
+	private void search(View arg0) {
 		try {
-			// falta obtener los filtros de la pantalla
 			Filters filtrosBusqueda = new Filters();
 			filtrosBusqueda.setIdCategory(getCategoriaSelectedId());
 			filtrosBusqueda.setResultsCount(CANTIDAD_REGISTROS);
 			filtrosBusqueda.setText(getTextFiltro());
 
-			// Se llama a asink Task para la busqueda de lugares
 			BuscarLocationsTask buscarLocationsTask = new BuscarLocationsTask();
 			buscarLocationsTask.execute(filtrosBusqueda);
 		} catch (Exception ex) {
@@ -210,13 +163,14 @@ public class Searcher extends Activity {
 	class BuscarCategoriasTask extends
 			AsyncTask<Void, Void, Responseclass.Response_CategoriasDisponibles> {
 		ProgressDialog progressDialog;
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			progressDialog = ProgressDialog.show(Searcher.this, "",
 					"Cargando Categorias...");
 		}
+
 		@Override
 		protected Response_CategoriasDisponibles doInBackground(Void... arg0) {
 			Log.i("BuscarCategoriasTask",
@@ -303,11 +257,10 @@ public class Searcher extends Activity {
 
 			if (result != null) {
 				cargarResultadosBusqueda(result.getList());
-			}
-			else
-			{
-				Toast.makeText(getApplicationContext(), "No se encontraron resultados",
-						Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(getApplicationContext(),
+						"No se encontraron resultados", Toast.LENGTH_SHORT)
+						.show();
 			}
 			progressDialog.dismiss();
 		}

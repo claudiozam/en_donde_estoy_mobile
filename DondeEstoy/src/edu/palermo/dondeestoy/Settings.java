@@ -3,6 +3,8 @@ package edu.palermo.dondeestoy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import edu.palermo.dondeestoy.rest.ApiService;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,6 +40,7 @@ public class Settings extends Activity {
 			@Override
 			public void onClick(View v) {
 				utils.saveServerAddress(editTextServidor.getText().toString());
+				ApiService.setServerAddress(editTextServidor.getText().toString());
 				Toast.makeText(getApplicationContext(), "Servidor Guardado.",
 						Toast.LENGTH_SHORT).show();
 				
