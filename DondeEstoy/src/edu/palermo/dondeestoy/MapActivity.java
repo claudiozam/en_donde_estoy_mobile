@@ -130,6 +130,7 @@ public class MapActivity extends FragmentActivity implements
 			// Finaliza la ejecucion y actualizo GUI
 			mapa.clear();
 			if (resultPoints != null) {
+			Log.d("MapActivity.onPostExecute", String.valueOf(resultPoints.getList().length) );
 				for (LocationPoint locationPoint : resultPoints.getList()) {
 					MapPoint mapPoint = new MapPoint(locationPoint.getDevice(),
 							new LatLng(locationPoint.getLatitude(),
